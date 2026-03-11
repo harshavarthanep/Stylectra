@@ -78,8 +78,8 @@
         .glass-input { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255,255,255,0.9); }
         .dark .glass-input { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1); color: white; }
 
-        .glass-modal { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-        .dark .glass-modal { background: rgba(0, 0, 0, 0.6); }
+        .glass-modal { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
+        .dark .glass-modal { background: rgba(0, 0, 0, 0.7); }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -89,15 +89,15 @@
 <body class="bg-mesh-light h-screen flex flex-col text-gray-900 dark:text-gray-100 selection:bg-indigo-300 dark:selection:bg-indigo-700">
     <div class="fashion-pattern"></div>
 
-    <nav class="glass sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 flex items-center gap-2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-7 h-7 text-indigo-600 dark:text-indigo-400"><path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path><path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path></svg>
+    <nav class="glass sticky top-0 z-40 px-4 md:px-6 py-4 flex justify-between items-center">
+        <h1 class="text-xl md:text-2xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 flex items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 md:w-7 md:h-7 text-indigo-600 dark:text-indigo-400"><path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path><path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path></svg>
             Stylectra
         </h1>
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2 md:gap-4">
             
-            <button onclick="installApp()" class="install-app-btn hidden px-4 py-1.5 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Install
+            <button onclick="installApp()" class="install-app-btn hidden p-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-800 transition-all shadow-sm" title="Install App">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             </button>
 
             <button onclick="toggleTheme()" class="p-2 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-all text-gray-700 dark:text-gray-200" title="Toggle Theme">
@@ -106,7 +106,7 @@
             </button>
             <div id="nav-actions" class="hidden flex items-center gap-4">
                 <span id="user-email" class="text-xs font-semibold text-gray-500 dark:text-gray-400 hidden md:inline-block tracking-wide"></span>
-                <button id="logout-btn" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition bg-white/80 dark:bg-black/50 backdrop-blur-md border border-white dark:border-white/10 px-5 py-2 rounded-full shadow-sm">Logout</button>
+                <button id="logout-btn" class="text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition bg-white/80 dark:bg-black/50 backdrop-blur-md border border-white dark:border-white/10 px-4 py-2 rounded-full shadow-sm">Logout</button>
             </div>
         </div>
     </nav>
@@ -126,46 +126,43 @@
                 <input type="password" id="password" placeholder="Password" class="w-full p-4 glass-input rounded-2xl mb-8 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm font-medium">
                 <button id="auth-btn" class="w-full bg-gray-900 dark:bg-white hover:bg-black dark:hover:bg-gray-200 text-white dark:text-black font-bold tracking-wide p-4 rounded-2xl shadow-floating transition-transform hover:-translate-y-0.5">Continue</button>
                 
-                <button onclick="installApp()" class="install-app-btn hidden w-full mt-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-bold tracking-wide p-4 rounded-2xl shadow-sm border border-indigo-100 dark:border-indigo-800 transition-transform hover:-translate-y-0.5">📥 Install Stylectra App</button>
-
                 <div class="mt-8 flex justify-between text-sm font-semibold text-gray-500 dark:text-gray-400">
                     <button id="toggle-auth" onclick="toggleAuthMode()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Create Account</button>
                     <button id="forgot-password" onclick="resetPassword()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Forgot Password?</button>
                 </div>
-                <div id="auth-error" class="text-red-500 text-sm mt-4 text-center hidden bg-red-50/80 dark:bg-red-900/30 backdrop-blur-md p-3 rounded-xl border border-red-100 dark:border-red-800 font-medium"></div>
             </div>
         </section>
 
         <section id="dashboard-view" class="w-full h-full hidden-view flex flex-col md:flex-row">
             
-            <aside class="md:w-64 md:h-full flex-shrink-0 flex md:flex-col justify-around md:justify-start p-4 md:p-6 order-last md:order-first border-t md:border-r border-gray-200/40 dark:border-white/10 z-30 relative glass md:bg-transparent md:border-t-0 md:border-b-0">
-                <button onclick="loadSubView('wardrobe')" class="nav-btn w-full text-center md:text-left p-4 md:mb-3 rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-3">
-                    <span class="text-2xl">👕</span> <span class="text-xs md:text-[15px] tracking-wide">Wardrobe</span>
+            <aside class="md:w-64 md:h-full flex-shrink-0 flex md:flex-col justify-around md:justify-start p-3 md:p-6 order-last md:order-first border-t md:border-r border-gray-200/40 dark:border-white/10 z-30 relative glass md:bg-transparent md:border-t-0 md:border-b-0 pb-6 md:pb-6">
+                <button onclick="loadSubView('wardrobe')" class="nav-btn w-full text-center md:text-left p-3 md:p-4 md:mb-3 rounded-2xl md:rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                    <span class="text-2xl">👕</span> <span class="text-[10px] md:text-[15px] tracking-wide uppercase md:capitalize">Wardrobe</span>
                 </button>
-                <button onclick="loadSubView('styling')" class="nav-btn w-full text-center md:text-left p-4 md:mb-3 rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-3">
-                    <span class="text-2xl">✨</span> <span class="text-xs md:text-[15px] tracking-wide">Styling</span>
+                <button onclick="loadSubView('styling')" class="nav-btn w-full text-center md:text-left p-3 md:p-4 md:mb-3 rounded-2xl md:rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                    <span class="text-2xl">✨</span> <span class="text-[10px] md:text-[15px] tracking-wide uppercase md:capitalize">Styling</span>
                 </button>
-                <button onclick="loadSubView('memzone')" class="nav-btn w-full text-center md:text-left p-4 md:mb-3 rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-3">
-                    <span class="text-2xl">📸</span> <span class="text-xs md:text-[15px] tracking-wide">MemZone</span>
+                <button onclick="loadSubView('memzone')" class="nav-btn w-full text-center md:text-left p-3 md:p-4 md:mb-3 rounded-2xl md:rounded-3xl font-bold text-gray-400 dark:text-gray-500 hover:bg-white/80 dark:hover:bg-white/10 hover:shadow-sm transition-all flex flex-col md:flex-row items-center gap-2 md:gap-3">
+                    <span class="text-2xl">📸</span> <span class="text-[10px] md:text-[15px] tracking-wide uppercase md:capitalize">MemZone</span>
                 </button>
             </aside>
 
-            <div class="flex-grow p-6 md:p-10 overflow-y-auto scroll-smooth" id="main-content">
+            <div class="flex-grow p-4 md:p-10 overflow-y-auto scroll-smooth" id="main-content">
                 
                 <div id="subview-wardrobe" class="hidden-view max-w-6xl mx-auto pb-24 md:pb-0">
                     
-                    <div class="flex flex-row justify-between items-center mb-8 md:mb-10 gap-2">
+                    <div class="flex flex-row justify-between items-center mb-6 md:mb-10 gap-2">
                         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Wardrobe</h2>
                         <button onclick="openNewWardrobeModal()" class="bg-gray-900 dark:bg-white text-white dark:text-black px-4 py-2.5 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-floating hover:scale-105 transition-transform flex items-center gap-2 shrink-0">
                             <span>+</span> <span class="hidden sm:inline">New Collection</span><span class="sm:hidden">New</span>
                         </button>
                     </div>
                     
-                    <div id="new-wardrobe-form" class="hidden glass-card p-8 rounded-4xl shadow-floating mb-10 transition-all">
+                    <div id="new-wardrobe-form" class="hidden glass-card p-6 md:p-8 rounded-4xl shadow-floating mb-8 md:mb-10 transition-all">
                         <h3 class="font-extrabold text-2xl mb-6 tracking-tight">Create Collection</h3>
                         <input type="text" id="w-name" placeholder="Name (e.g., Summer Essentials)" class="w-full p-4 glass-input rounded-2xl mb-6 focus:ring-2 outline-none shadow-sm font-medium">
                         
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 mb-8">
                             <select id="w-gender" class="p-4 glass-input rounded-2xl outline-none shadow-sm focus:ring-2 font-medium">
                                 <option value="" disabled selected>Category</option><option>Women</option><option>Men</option>
                             </select>
@@ -182,17 +179,17 @@
                         </div>
                     </div>
 
-                    <div id="wardrobe-list" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
+                    <div id="wardrobe-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8"></div>
                 </div>
 
                 <div id="subview-styling" class="hidden-view max-w-3xl mx-auto pb-24 md:pb-0">
-                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 md:mb-10">Styling Studio</h2>
-                    <div class="glass-card p-8 md:p-10 rounded-4xl shadow-floating mb-10">
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-6 md:mb-10">Styling Studio</h2>
+                    <div class="glass-card p-6 md:p-10 rounded-4xl shadow-floating mb-8 md:mb-10">
                         <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Choose Collection</label>
-                        <select id="style-wardrobe-select" class="w-full p-4 glass-input rounded-2xl mb-8 outline-none focus:ring-2 shadow-sm font-medium"><option value="">Select Wardrobe...</option></select>
+                        <select id="style-wardrobe-select" class="w-full p-4 glass-input rounded-2xl mb-6 md:mb-8 outline-none focus:ring-2 shadow-sm font-medium"><option value="">Select Wardrobe...</option></select>
                         
                         <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Occasion / Event</label>
-                        <select id="style-occasion" class="w-full p-4 glass-input rounded-2xl mb-10 outline-none focus:ring-2 shadow-sm font-medium">
+                        <select id="style-occasion" class="w-full p-4 glass-input rounded-2xl mb-8 md:mb-10 outline-none focus:ring-2 shadow-sm font-medium">
                             <option>College</option><option>Office</option><option>Meeting</option><option>Family Out</option><option>Spiritual Event</option>
                             <option>Friends Out</option><option>Outing / Date</option><option>Shopping</option><option>Party</option><option>Trip / Vacation</option>
                             <option>Wedding</option><option>Reception</option><option>Functions</option><option>Gym</option><option>Sports</option>
@@ -203,33 +200,31 @@
                         </button>
                     </div>
 
-                    <div id="generated-outfit-area" class="hidden-view glass-card p-8 md:p-10 rounded-4xl shadow-floating relative overflow-hidden transition-all">
+                    <div id="generated-outfit-area" class="hidden-view glass-card p-6 md:p-10 rounded-4xl shadow-floating relative overflow-hidden transition-all">
                         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
                         
-                        <div id="near-match-warning" class="hidden bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-700 p-4 rounded-2xl mb-8 flex items-start gap-3 backdrop-blur-sm">
-                            <span class="text-yellow-500 text-xl">⚠️</span>
+                        <div id="near-match-warning" class="hidden bg-yellow-50/90 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-700 p-4 rounded-3xl mb-8 flex items-start gap-3 backdrop-blur-md shadow-sm">
+                            <span class="text-yellow-500 text-2xl mt-0.5">⚠️</span>
                             <div>
-                                <h4 class="font-bold text-yellow-800 dark:text-yellow-400 text-sm">Near Match Found</h4>
-                                <p id="near-match-text" class="text-xs text-yellow-700 dark:text-yellow-500 mt-1 font-medium"></p>
+                                <h4 class="font-extrabold text-yellow-800 dark:text-yellow-400 text-sm tracking-tight">Near Match Found</h4>
+                                <p id="near-match-text" class="text-xs text-yellow-700 dark:text-yellow-500 mt-1 font-medium leading-relaxed"></p>
                             </div>
                         </div>
 
-                        <h3 class="text-2xl md:text-3xl font-extrabold mb-8 md:mb-10 text-center mt-2 tracking-tight">Your Outfit</h3>
-                        <div id="outfit-images-display" class="flex flex-row justify-center gap-6 md:gap-12 mb-12"></div>
+                        <h3 class="text-2xl md:text-3xl font-extrabold mb-8 text-center mt-2 tracking-tight">Your Outfit</h3>
+                        
+                        <div id="outfit-images-display" class="flex flex-row justify-center gap-4 md:gap-10 mb-10 w-full">
+                            </div>
                         
                         <div id="shopping-section" class="hidden mb-10 pt-8 border-t border-gray-200/50 dark:border-white/10">
                             <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Shop For Occasion Wear</h4>
-                            <div class="flex flex-wrap gap-3 justify-center">
-                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#131921] dark:bg-[#ff9900] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-[#ff9900]/20">Amazon</a>
-                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#047BD5] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Flipkart</a>
-                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#ff3f6c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Myntra</a>
-                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#2c415c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Ajio</a>
-                            </div>
+                            <div class="flex flex-wrap gap-2 md:gap-3 justify-center" id="shopping-links-container">
+                                </div>
                         </div>
 
-                        <div class="bg-gray-50/50 dark:bg-black/30 p-6 rounded-3xl border border-white/50 dark:border-white/10 shadow-inner">
+                        <div class="bg-gray-50/50 dark:bg-black/30 p-5 md:p-6 rounded-3xl border border-white/50 dark:border-white/10 shadow-inner">
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Capture to MemZone</label>
-                            <textarea id="memzone-note" placeholder="Add a memory note (e.g., 'Perfect for Friday night')..." class="w-full p-4 glass-input rounded-2xl mb-5 outline-none focus:ring-2 shadow-sm resize-none h-24 font-medium"></textarea>
+                            <textarea id="memzone-note" placeholder="Add a memory note (e.g., 'Perfect for Friday night')..." class="w-full p-4 glass-input rounded-2xl mb-4 md:mb-5 outline-none focus:ring-2 shadow-sm resize-none h-24 font-medium"></textarea>
                             <button onclick="saveToMemZone()" class="w-full bg-gray-900 dark:bg-white text-white dark:text-black px-4 py-4 rounded-2xl font-bold shadow-md hover:-translate-y-0.5 transition-transform">Save to Diary</button>
                         </div>
                     </div>
@@ -237,7 +232,7 @@
 
                 <div id="subview-memzone" class="hidden-view max-w-4xl mx-auto pb-24 md:pb-0">
                     <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 md:mb-10">MemZone</h2>
-                    <div id="memzone-list" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+                    <div id="memzone-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8"></div>
                 </div>
 
             </div>
@@ -250,8 +245,7 @@
                     <h3 class="font-extrabold text-2xl md:text-3xl tracking-tight" id="explore-title">Collection</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">Manage all your saved pieces</p>
                 </div>
-                <div id="explore-grid" class="flex-grow overflow-y-auto pr-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 scroll-smooth">
-                    </div>
+                <div id="explore-grid" class="flex-grow overflow-y-auto pr-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 scroll-smooth"></div>
             </div>
         </div>
 
@@ -259,25 +253,14 @@
             <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-md transition-all">
                 <h3 class="font-extrabold text-2xl mb-6 tracking-tight">Edit Collection</h3>
                 <input type="hidden" id="edit-w-id">
-                
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">Name</label>
                 <input type="text" id="edit-w-name" class="w-full p-4 glass-input rounded-2xl mb-4 focus:ring-2 outline-none font-medium">
-                
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">Category (Locked)</label>
-                <select id="edit-w-gender" class="w-full p-4 bg-gray-100/50 dark:bg-black/20 text-gray-400 dark:text-gray-600 rounded-2xl mb-4 outline-none border border-transparent cursor-not-allowed font-medium">
-                    <option>Women</option><option>Men</option>
-                </select>
-                
+                <select id="edit-w-gender" class="w-full p-4 bg-gray-100/50 dark:bg-black/20 text-gray-400 dark:text-gray-600 rounded-2xl mb-4 outline-none border border-transparent cursor-not-allowed font-medium"><option>Women</option><option>Men</option></select>
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">Skin Tone</label>
-                <select id="edit-w-skin" class="w-full p-4 glass-input rounded-2xl mb-4 outline-none focus:ring-2 font-medium">
-                    <option>Fair (Very Light)</option><option>Light</option><option>Medium</option><option>Olive</option><option>Tan</option><option>Brown</option><option>Deep (Dark)</option>
-                </select>
-
+                <select id="edit-w-skin" class="w-full p-4 glass-input rounded-2xl mb-4 outline-none focus:ring-2 font-medium"><option>Fair (Very Light)</option><option>Light</option><option>Medium</option><option>Olive</option><option>Tan</option><option>Brown</option><option>Deep (Dark)</option></select>
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-2">Body Shape</label>
-                <select id="edit-w-body" class="w-full p-4 glass-input rounded-2xl mb-8 outline-none focus:ring-2 font-medium">
-                    <option>Hourglass</option><option>Pear (Triangle)</option><option>Apple (Round)</option><option>Rectangle (Straight)</option><option>Inverted Triangle</option>
-                </select>
-
+                <select id="edit-w-body" class="w-full p-4 glass-input rounded-2xl mb-8 outline-none focus:ring-2 font-medium"><option>Hourglass</option><option>Pear (Triangle)</option><option>Apple (Round)</option><option>Rectangle (Straight)</option><option>Inverted Triangle</option></select>
                 <div class="flex gap-3">
                     <button onclick="updateWardrobe()" class="flex-grow bg-indigo-600 dark:bg-indigo-500 text-white py-4 rounded-2xl font-bold shadow-md hover:-translate-y-0.5 transition">Update</button>
                     <button onclick="closeEditModal()" class="flex-grow bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white py-4 rounded-2xl font-bold transition">Cancel</button>
@@ -285,19 +268,26 @@
             </div>
         </div>
 
-        <div id="memzone-modal" class="hidden glass-modal fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-md transition-all text-center">
-                <span class="text-4xl mb-4 block">📸</span>
-                <h3 class="font-extrabold text-2xl mb-2 tracking-tight">Outfit Details</h3>
-                <div id="memzone-info-content" class="text-sm mb-6 space-y-3 bg-gray-50/50 dark:bg-black/30 p-5 rounded-3xl text-left shadow-inner font-medium"></div>
-                
-                <label class="block text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Update Note</label>
-                <input type="hidden" id="edit-mem-id">
-                <textarea id="edit-mem-note" class="w-full p-4 glass-input rounded-3xl mb-6 outline-none focus:ring-2 resize-none h-24 font-medium"></textarea>
-                
+        <div id="custom-alert-modal" class="hidden glass-modal fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-sm transition-all text-center">
+                <div id="alert-icon" class="text-4xl mb-4">🔔</div>
+                <h3 id="alert-title" class="font-extrabold text-2xl mb-3 tracking-tight">Notice</h3>
+                <p id="alert-message" class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-8 leading-relaxed"></p>
+                <button onclick="closeCustomAlert()" class="w-full bg-gray-900 dark:bg-white text-white dark:text-black py-3.5 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Understood</button>
+            </div>
+        </div>
+
+        <div id="install-prompt-modal" class="hidden glass-modal fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-sm transition-all text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                <div class="flex justify-center mb-4 mt-2">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-indigo-600 dark:text-indigo-400"><path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path><path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path></svg>
+                </div>
+                <h3 class="font-extrabold text-2xl mb-3 tracking-tight">Install Stylectra</h3>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-8 leading-relaxed">Add Stylectra to your home screen for a full-screen native experience, offline access, and faster loading.</p>
                 <div class="flex gap-3">
-                    <button onclick="updateMemZoneNote()" class="flex-grow bg-gray-900 dark:bg-white text-white dark:text-black py-4 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Save Note</button>
-                    <button onclick="document.getElementById('memzone-modal').classList.add('hidden')" class="flex-grow bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white py-4 rounded-2xl font-bold transition">Close</button>
+                    <button onclick="installApp()" class="flex-grow bg-indigo-600 dark:bg-indigo-500 text-white py-3.5 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Install App</button>
+                    <button onclick="closeInstallPrompt()" class="flex-grow bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white py-3.5 rounded-2xl font-bold transition">Maybe Later</button>
                 </div>
             </div>
         </div>
@@ -330,15 +320,33 @@
         const womenCategories = ['Top', 'Bottom', 'Dress', 'Kurti', 'Saree', 'Casuals', 'Ethnic Wear', 'Sports Wear', 'Footwear'];
         const menCategories = ['Shirt', 'T-Shirt', 'Pant', 'Ethnic Wear', 'Casuals', 'Sports Wear', 'Footwear'];
 
+        // --- Custom Alert System ---
+        window.showAlert = (title, message, isError = true) => {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            document.getElementById('alert-icon').innerText = isError ? '⚠️' : '✨';
+            document.getElementById('custom-alert-modal').classList.remove('hidden');
+        };
+        window.closeCustomAlert = () => { document.getElementById('custom-alert-modal').classList.add('hidden'); };
+
         // --- PWA Install Logic ---
         let deferredPrompt;
+        let installPromptShownThisSession = false;
+
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.remove('hidden'));
+            
+            // If user is already logged in, show prompt automatically
+            if(currentUser && !installPromptShownThisSession) {
+                setTimeout(() => document.getElementById('install-prompt-modal').classList.remove('hidden'), 2000);
+                installPromptShownThisSession = true;
+            }
         });
 
         window.installApp = async () => {
+            document.getElementById('install-prompt-modal').classList.add('hidden');
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
@@ -349,11 +357,13 @@
             }
         };
 
+        window.closeInstallPrompt = () => { document.getElementById('install-prompt-modal').classList.add('hidden'); };
+
         window.addEventListener('appinstalled', () => {
             document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.add('hidden'));
+            document.getElementById('install-prompt-modal').classList.add('hidden');
         });
 
-        // Hide install button if already running in standalone app mode
         if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
             document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.add('hidden'));
         }
@@ -362,11 +372,9 @@
         window.toggleTheme = () => {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.theme = 'light';
+                html.classList.remove('dark'); localStorage.theme = 'light';
             } else {
-                html.classList.add('dark');
-                localStorage.theme = 'dark';
+                html.classList.add('dark'); localStorage.theme = 'dark';
             }
         };
 
@@ -403,7 +411,15 @@
 
         // --- Auth ---
         onAuthStateChanged(auth, (user) => {
-            if (user) { currentUser = user; switchView('dashboard'); } 
+            if (user) { 
+                currentUser = user; 
+                switchView('dashboard'); 
+                // Show install prompt if it's ready
+                if(deferredPrompt && !installPromptShownThisSession) {
+                    setTimeout(() => document.getElementById('install-prompt-modal').classList.remove('hidden'), 2000);
+                    installPromptShownThisSession = true;
+                }
+            } 
             else { currentUser = null; switchView('auth'); }
         });
 
@@ -441,24 +457,22 @@
             const skinTone = document.getElementById('w-skin').value;
             const bodyShape = document.getElementById('w-body').value;
             
-            if(!name || !gender || !skinTone || !bodyShape) return alert("Please fill all fields.");
+            if(!name || !gender || !skinTone || !bodyShape) return showAlert("Missing Info", "Please fill out all the fields to create a collection.");
 
             const q = query(collection(db, `users/${currentUser.uid}/wardrobes`));
             const snapshot = await getDocs(q);
             const isDuplicate = snapshot.docs.some(d => d.data().name.toLowerCase() === name.toLowerCase());
-            if (isDuplicate) return alert(`A wardrobe named "${name}" already exists.`);
+            if (isDuplicate) return showAlert("Duplicate Collection", `A wardrobe named "${name}" already exists.`);
 
             try {
                 await addDoc(collection(db, `users/${currentUser.uid}/wardrobes`), { name, gender, skinTone, bodyShape, items: [] });
                 document.getElementById('new-wardrobe-form').classList.add('hidden');
                 document.getElementById('w-name').value = '';
                 fetchWardrobes();
-            } catch (e) { alert("Error saving."); }
+            } catch (e) { showAlert("Error", "Error saving collection."); }
         };
 
-        window.scrollGallery = (id, dist) => {
-            document.getElementById(`gallery-${id}`).scrollBy({ left: dist, behavior: 'smooth' });
-        };
+        window.scrollGallery = (id, dist) => { document.getElementById(`gallery-${id}`).scrollBy({ left: dist, behavior: 'smooth' }); };
 
         window.fetchWardrobes = async () => {
             const list = document.getElementById('wardrobe-list');
@@ -484,10 +498,10 @@
                         if(imgData) {
                             galleryHTML += `
                                 <div class="flex flex-col items-center shrink-0">
-                                    <div class="relative w-24 h-32 rounded-3xl border border-white/60 dark:border-white/10 overflow-hidden shadow-sm">
+                                    <div class="relative w-20 h-28 md:w-24 md:h-32 rounded-3xl border border-white/60 dark:border-white/10 overflow-hidden shadow-sm">
                                         <img src="${imgData}" class="w-full h-full object-cover">
                                     </div>
-                                    <span class="text-[10px] font-bold text-gray-500 dark:text-gray-400 mt-2 uppercase tracking-widest">${item.category}</span>
+                                    <span class="text-[9px] md:text-[10px] font-bold text-gray-500 dark:text-gray-400 mt-2 uppercase tracking-widest">${item.category}</span>
                                 </div>
                             `;
                         }
@@ -499,55 +513,48 @@
 
                 list.innerHTML += `
                     <div class="glass-card p-6 md:p-8 rounded-4xl flex flex-col justify-between relative group/card">
-                        
                         <div class="absolute top-6 right-6 flex gap-2">
-                            <button onclick="openEditModal('${docSnap.id}', '${data.name}', '${data.gender}', '${data.skinTone}', '${data.bodyShape}')" class="w-9 h-9 flex items-center justify-center bg-white/80 dark:bg-black/40 backdrop-blur-sm border border-white dark:border-white/10 rounded-full shadow-sm hover:scale-105 transition">✏️</button>
-                            <button onclick="deleteWardrobe('${docSnap.id}')" class="w-9 h-9 flex items-center justify-center bg-red-50/80 dark:bg-red-900/40 backdrop-blur-sm border border-red-100 dark:border-red-900/50 text-red-500 rounded-full shadow-sm hover:scale-105 transition">🗑️</button>
+                            <button onclick="openEditModal('${docSnap.id}', '${data.name}', '${data.gender}', '${data.skinTone}', '${data.bodyShape}')" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-white/80 dark:bg-black/40 backdrop-blur-sm border border-white dark:border-white/10 rounded-full shadow-sm hover:scale-105 transition">✏️</button>
+                            <button onclick="deleteWardrobe('${docSnap.id}')" class="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center bg-red-50/80 dark:bg-red-900/40 backdrop-blur-sm border border-red-100 dark:border-red-900/50 text-red-500 rounded-full shadow-sm hover:scale-105 transition">🗑️</button>
                         </div>
-
                         <div>
-                            <div class="flex flex-col items-start mb-6 pr-20">
-                                <span class="bg-indigo-50/80 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-[11px] px-3 py-1 rounded-full font-bold border border-indigo-100 dark:border-indigo-800 mb-3 tracking-wide uppercase">${data.gender}</span>
+                            <div class="flex flex-col items-start mb-6 pr-16 md:pr-20">
+                                <span class="bg-indigo-50/80 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-[10px] md:text-[11px] px-3 py-1 rounded-full font-bold border border-indigo-100 dark:border-indigo-800 mb-3 tracking-wide uppercase">${data.gender}</span>
                                 <h3 class="font-extrabold text-2xl md:text-3xl tracking-tight truncate w-full">${data.name}</h3>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">${data.skinTone} • ${data.bodyShape}</p>
+                                <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">${data.skinTone} • ${data.bodyShape}</p>
                             </div>
-                            
                             <div class="mb-6 relative group/carousel">
                                 ${items.length > 2 ? `<button onclick="scrollGallery('${docSnap.id}', -200)" class="absolute left-1 top-[40%] -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-full shadow-md border border-white/50 opacity-0 group-hover/carousel:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg></button>` : ''}
-                                
-                                <div id="gallery-${docSnap.id}" class="flex overflow-x-auto gap-4 p-4 bg-gray-50/50 dark:bg-black/20 rounded-3xl border border-white/50 dark:border-white/5 shadow-inner scroll-smooth no-scrollbar">
+                                <div id="gallery-${docSnap.id}" class="flex overflow-x-auto gap-3 md:gap-4 p-3 md:p-4 bg-gray-50/50 dark:bg-black/20 rounded-3xl border border-white/50 dark:border-white/5 shadow-inner scroll-smooth no-scrollbar">
                                     ${galleryHTML}
                                 </div>
-                                
                                 ${items.length > 2 ? `<button onclick="scrollGallery('${docSnap.id}', 200)" class="absolute right-1 top-[40%] -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-full shadow-md border border-white/50 opacity-0 group-hover/carousel:opacity-100 transition-opacity"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></button>` : ''}
                             </div>
-                            
-                            ${items.length > 0 ? `<button onclick="openExploreModal('${docSnap.id}', '${data.name}', '${data.gender}')" class="w-full mb-6 py-2.5 bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-xl font-bold text-sm hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 transition">⛶ Explore All & Manage Items</button>` : ''}
+                            ${items.length > 0 ? `<button onclick="openExploreModal('${docSnap.id}', '${data.name}', '${data.gender}')" class="w-full mb-6 py-2.5 bg-indigo-50/50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-xl font-bold text-xs md:text-sm hover:bg-indigo-100/50 dark:hover:bg-indigo-900/40 transition">⛶ Explore All & Manage</button>` : ''}
                         </div>
                         
-                        <div class="pt-6 border-t border-gray-200/50 dark:border-white/10">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-16 h-16 bg-white/50 dark:bg-black/20 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0 border-2 border-dashed border-gray-300 dark:border-gray-600">
-                                    <svg class="w-6 h-6 text-gray-400 dark:text-gray-500 absolute z-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <div class="pt-5 md:pt-6 border-t border-gray-200/50 dark:border-white/10">
+                            <div class="flex items-center gap-3 md:gap-4 mb-4">
+                                <div class="w-14 h-14 md:w-16 md:h-16 bg-white/50 dark:bg-black/20 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0 border-2 border-dashed border-gray-300 dark:border-gray-600">
                                     <img id="preview-${docSnap.id}" class="w-full h-full object-cover hidden relative z-10" />
                                 </div>
                                 <div class="flex gap-2 w-full">
-                                    <label class="flex-1 cursor-pointer bg-white/60 dark:bg-black/40 py-3 rounded-2xl flex flex-col items-center justify-center gap-1 border border-white/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-black/60 transition shadow-sm">
-                                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">Gallery</span>
-                                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    <label class="flex-1 cursor-pointer bg-white/60 dark:bg-black/40 py-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border border-white/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-black/60 transition shadow-sm">
+                                        <span class="text-[9px] font-bold uppercase tracking-wider text-gray-500">Gallery</span>
+                                        <svg class="w-4 h-4 md:w-5 md:h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         <input type="file" accept="image/*" id="file-gal-${docSnap.id}" class="hidden" onchange="previewImage(this, '${docSnap.id}')">
                                     </label>
-                                    <label class="flex-1 cursor-pointer bg-white/60 dark:bg-black/40 py-3 rounded-2xl flex flex-col items-center justify-center gap-1 border border-white/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-black/60 transition shadow-sm">
-                                        <span class="text-[10px] font-bold uppercase tracking-wider text-gray-500">Camera</span>
-                                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <label class="flex-1 cursor-pointer bg-white/60 dark:bg-black/40 py-2.5 rounded-2xl flex flex-col items-center justify-center gap-1 border border-white/50 dark:border-white/10 hover:bg-white/90 dark:hover:bg-black/60 transition shadow-sm">
+                                        <span class="text-[9px] font-bold uppercase tracking-wider text-gray-500">Camera</span>
+                                        <svg class="w-4 h-4 md:w-5 md:h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                         <input type="file" accept="image/*" capture="environment" id="file-cam-${docSnap.id}" class="hidden" onchange="previewImage(this, '${docSnap.id}')">
                                     </label>
                                 </div>
                             </div>
 
-                            <div class="flex gap-3">
-                                <select id="cat-${docSnap.id}" class="flex-grow p-3.5 glass-input rounded-2xl outline-none focus:ring-2 text-sm shadow-sm font-bold text-gray-700 dark:text-gray-300">${catSelectHTML}</select>
-                                <button onclick="uploadLocalItem('${docSnap.id}')" id="btn-${docSnap.id}" class="bg-gray-900 dark:bg-white text-white dark:text-black px-6 rounded-2xl text-sm font-bold shadow-md hover:-translate-y-0.5 transition-transform tracking-wide">Save</button>
+                            <div class="flex gap-2 md:gap-3">
+                                <select id="cat-${docSnap.id}" class="flex-grow p-3 glass-input rounded-2xl outline-none focus:ring-2 text-xs md:text-sm shadow-sm font-bold text-gray-700 dark:text-gray-300">${catSelectHTML}</select>
+                                <button onclick="uploadLocalItem('${docSnap.id}')" id="btn-${docSnap.id}" class="bg-gray-900 dark:bg-white text-white dark:text-black px-5 md:px-6 rounded-2xl text-xs md:text-sm font-bold shadow-md hover:-translate-y-0.5 transition-transform tracking-wide">Save</button>
                             </div>
                         </div>
                     </div>
@@ -574,32 +581,28 @@
                 catOptions.forEach(opt => catSelectHTML += `<option ${opt === item.category ? 'selected' : ''}>${opt}</option>`);
 
                 grid.innerHTML += `
-                    <div class="flex flex-col items-center bg-white/50 dark:bg-black/30 p-4 rounded-3xl border border-white/50 dark:border-white/10 shadow-sm relative">
-                        <button onclick="deleteItemFromExplore('${wId}', '${item.imageId}', '${item.category}')" class="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition z-10">X</button>
-                        <div class="w-full h-32 md:h-40 rounded-2xl overflow-hidden mb-3">
+                    <div class="flex flex-col items-center bg-white/50 dark:bg-black/30 p-3 md:p-4 rounded-3xl border border-white/50 dark:border-white/10 shadow-sm relative">
+                        <button onclick="deleteItemFromExplore('${wId}', '${item.imageId}', '${item.category}')" class="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition z-10 text-xs font-bold">X</button>
+                        <div class="w-full aspect-[3/4] rounded-2xl overflow-hidden mb-3">
                             <img src="${imgData}" class="w-full h-full object-cover">
                         </div>
-                        <select id="edit-cat-${item.imageId}" class="w-full p-2 text-xs font-bold glass-input rounded-xl mb-2">${catSelectHTML}</select>
-                        <button onclick="updateItemCategory('${wId}', '${item.imageId}', '${item.category}', 'edit-cat-${item.imageId}')" class="w-full py-2 bg-gray-900 dark:bg-white text-white dark:text-black text-xs font-bold rounded-xl hover:-translate-y-0.5 transition">Save Edit</button>
+                        <select id="edit-cat-${item.imageId}" class="w-full p-2 text-[10px] md:text-xs font-bold glass-input rounded-xl mb-2">${catSelectHTML}</select>
+                        <button onclick="updateItemCategory('${wId}', '${item.imageId}', '${item.category}', 'edit-cat-${item.imageId}')" class="w-full py-2 bg-gray-900 dark:bg-white text-white dark:text-black text-[10px] md:text-xs font-bold rounded-xl hover:-translate-y-0.5 transition">Save</button>
                     </div>
                 `;
             }
         };
-
-        window.closeExploreModal = () => {
-            document.getElementById('explore-modal').classList.add('hidden');
-            fetchWardrobes();
-        };
+        window.closeExploreModal = () => { document.getElementById('explore-modal').classList.add('hidden'); fetchWardrobes(); };
 
         window.updateItemCategory = async (wId, imgId, oldCat, selectId) => {
             const newCat = document.getElementById(selectId).value;
-            if(oldCat === newCat) return alert("No changes made.");
+            if(oldCat === newCat) return showAlert("Notice", "No changes made.", false);
             
             const ref = doc(db, `users/${currentUser.uid}/wardrobes`, wId);
             await updateDoc(ref, { items: arrayRemove({ imageId: imgId, category: oldCat }) });
             await updateDoc(ref, { items: arrayUnion({ imageId: imgId, category: newCat }) });
             
-            alert("Category updated!");
+            showAlert("Success", "Category updated!", false);
             document.getElementById('explore-modal').classList.add('hidden');
             fetchWardrobes();
         };
@@ -623,7 +626,6 @@
             document.getElementById('edit-w-body').value = body;
             document.getElementById('edit-modal').classList.remove('hidden');
         };
-
         window.closeEditModal = () => document.getElementById('edit-modal').classList.add('hidden');
 
         window.updateWardrobe = async () => {
@@ -659,8 +661,8 @@
             
             const category = document.getElementById(`cat-${wardrobeId}`).value;
             const btn = document.getElementById(`btn-${wardrobeId}`);
-            if(!fileInput.files.length) return alert("Select an image via Gallery or Camera.");
-            if(!category) return alert("Select a clothing category.");
+            if(!fileInput.files.length) return showAlert("Missing Image", "Select an image via Gallery or Camera.");
+            if(!category) return showAlert("Missing Category", "Select a clothing category.");
 
             btn.innerText = "Saving...";
             const reader = new FileReader();
@@ -686,12 +688,11 @@
         window.generateOutfit = async () => {
             const wid = document.getElementById('style-wardrobe-select').value;
             const occasion = document.getElementById('style-occasion').value;
-            if(!wid) return alert("Please select a wardrobe.");
+            if(!wid) return showAlert("Action Required", "Please select a wardrobe collection first.");
             
             const btn = event.target;
             btn.innerHTML = "✨ Matching...";
 
-            // Hide previous warnings & shopping links before generation
             document.getElementById('near-match-warning').classList.add('hidden');
             document.getElementById('shopping-section').classList.add('hidden');
 
@@ -727,16 +728,25 @@
 
                     if (fallbackTops.length === 0 || fallbackBottoms.length === 0) {
                         btn.innerHTML = "✨ Generate Match";
-                        return alert("You need to save at least one Top and one Bottom in this wardrobe to generate an outfit.");
+                        return showAlert("Not Enough Items", `Please save at least one Top and one Bottom inside the '${wData.name}' collection to generate an outfit.`);
                     }
 
                     // Select randomly from all available
                     selTop = fallbackTops[Math.floor(Math.random() * fallbackTops.length)];
                     selBot = fallbackBottoms[Math.floor(Math.random() * fallbackBottoms.length)];
 
-                    // Show Warning & Shopping Links
+                    // Show Warning & Build Shopping Links
                     document.getElementById('near-match-warning').classList.remove('hidden');
-                    document.getElementById('near-match-text').innerText = `No suitable clothes found for "${occasion}". Try adding items like a ${allowedTops[0]} & ${allowedBottoms[0]}. Displaying near match instead.`;
+                    document.getElementById('near-match-text').innerText = `No ideal clothes found for "${occasion}". Try adding items like a ${allowedTops[0]} & ${allowedBottoms[0]}. Displaying nearest match instead.`;
+                    
+                    // Dynamic Affiliate/Shopping Links
+                    const searchQuery = encodeURIComponent(`${occasion} clothes for ${wData.gender}`);
+                    document.getElementById('shopping-links-container').innerHTML = `
+                        <a href="https://www.amazon.in/s?k=${searchQuery}" target="_blank" class="px-5 py-2.5 bg-[#131921] dark:bg-[#ff9900] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-[#ff9900]/20">Amazon</a>
+                        <a href="https://www.flipkart.com/search?q=${searchQuery}" target="_blank" class="px-5 py-2.5 bg-[#047BD5] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Flipkart</a>
+                        <a href="https://www.myntra.com/clothing?rawQuery=${searchQuery}" target="_blank" class="px-5 py-2.5 bg-[#ff3f6c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Myntra</a>
+                        <a href="https://www.ajio.com/search/?text=${searchQuery}" target="_blank" class="px-5 py-2.5 bg-[#2c415c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Ajio</a>
+                    `;
                     document.getElementById('shopping-section').classList.remove('hidden');
 
                 } else {
@@ -755,18 +765,20 @@
                 };
 
                 document.getElementById('generated-outfit-area').classList.remove('hidden-view');
+                
+                // Using max-width and aspect ratio for perfect mobile/desktop scaling
                 document.getElementById('outfit-images-display').innerHTML = `
-                    <div class="flex flex-col items-center group">
-                        <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest">${selTop.category}</span>
-                        <div class="h-64 w-48 md:h-80 md:w-56 bg-white dark:bg-black rounded-3xl shadow-floating border border-white/50 dark:border-white/10 overflow-hidden group-hover:-translate-y-1 transition-transform"><img src="${topImg}" class="w-full h-full object-cover" /></div>
+                    <div class="flex flex-col items-center group w-[45%] md:w-auto">
+                        <span class="text-[10px] md:text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest text-center truncate w-full">${selTop.category}</span>
+                        <div class="w-full md:w-56 aspect-[3/4] bg-white dark:bg-black rounded-3xl shadow-floating border border-white/50 dark:border-white/10 overflow-hidden group-hover:-translate-y-1 transition-transform"><img src="${topImg}" class="w-full h-full object-cover" /></div>
                     </div>
-                    <div class="flex flex-col items-center group">
-                        <span class="text-[11px] font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest">${selBot.category}</span>
-                        <div class="h-64 w-48 md:h-80 md:w-56 bg-white dark:bg-black rounded-3xl shadow-floating border border-white/50 dark:border-white/10 overflow-hidden group-hover:-translate-y-1 transition-transform"><img src="${botImg}" class="w-full h-full object-cover" /></div>
+                    <div class="flex flex-col items-center group w-[45%] md:w-auto">
+                        <span class="text-[10px] md:text-xs font-bold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-widest text-center truncate w-full">${selBot.category}</span>
+                        <div class="w-full md:w-56 aspect-[3/4] bg-white dark:bg-black rounded-3xl shadow-floating border border-white/50 dark:border-white/10 overflow-hidden group-hover:-translate-y-1 transition-transform"><img src="${botImg}" class="w-full h-full object-cover" /></div>
                     </div>
                 `;
                 btn.innerHTML = "✨ Generate Match";
-            } catch (e) { alert("Generation error."); btn.innerHTML = "✨ Generate Match"; }
+            } catch (e) { showAlert("Error", "There was an error generating the match."); btn.innerHTML = "✨ Generate Match"; }
         };
 
         // --- MemZone ---
@@ -781,11 +793,10 @@
                 await addDoc(collection(db, `users/${currentUser.uid}/memzone`), { 
                     note, occasion, date: new Date().toISOString(), ...currentGeneratedImages 
                 });
-                alert("Saved to MemZone Diary!");
+                showAlert("Saved", "Outfit saved to your MemZone Diary!", false);
                 document.getElementById('memzone-note').value = '';
-                // Instead of hiding the generated area completely, let's keep it visible but reset the button
                 btn.innerText = "Save to Diary";
-            } catch(e) { btn.innerText = "Save to Diary"; }
+            } catch(e) { btn.innerText = "Save to Diary"; showAlert("Error", "Could not save memory.");}
         };
 
         window.fetchMemZone = async () => {
@@ -803,29 +814,23 @@
                 const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id}));
 
                 list.innerHTML += `
-                    <div class="glass-card rounded-4xl pt-4 px-8 pb-8 relative group overflow-hidden">
-                        <div class="flex justify-center mb-4">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-14 h-7 text-gray-400 dark:text-gray-600">
-                                <path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path>
-                                <path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path>
-                            </svg>
+                    <div class="glass-card rounded-4xl pt-4 px-6 md:px-8 pb-8 relative group overflow-hidden">
+                        <div class="absolute top-4 right-4 flex gap-2 opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                            <button onclick="openMemZoneInfo('${dataStr}')" class="w-8 h-8 md:w-9 md:h-9 bg-white/80 dark:bg-black/50 backdrop-blur-sm border border-white dark:border-white/10 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Info/Edit">ℹ️</button>
+                            <button onclick="deleteMemZone('${docSnap.id}')" class="w-8 h-8 md:w-9 md:h-9 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-100 dark:border-red-900 text-red-500 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Delete">🗑️</button>
                         </div>
-                        <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="openMemZoneInfo('${dataStr}')" class="w-9 h-9 bg-white/80 dark:bg-black/50 backdrop-blur-sm border border-white dark:border-white/10 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Info/Edit">ℹ️</button>
-                            <button onclick="deleteMemZone('${docSnap.id}')" class="w-9 h-9 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-100 dark:border-red-900 text-red-500 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Delete">🗑️</button>
+                        <div class="text-center mb-6 mt-2">
+                            <h4 class="font-extrabold text-xl md:text-2xl tracking-tight">${data.occasion}</h4>
+                            <span class="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">${new Date(data.date).toLocaleDateString()}</span>
                         </div>
-                        <div class="text-center mb-6">
-                            <h4 class="font-extrabold text-2xl tracking-tight">${data.occasion}</h4>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">${new Date(data.date).toLocaleDateString()}</span>
-                        </div>
-                        <div class="flex justify-center gap-5 mb-6">
-                            <div class="flex flex-col items-center">
-                                <img src="${topImg}" class="w-28 h-40 object-cover rounded-3xl shadow-sm border border-white/50 dark:border-white/10" />
-                                <span class="text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest">${data.topCat || 'Top'}</span>
+                        <div class="flex justify-center gap-3 md:gap-5 mb-6 w-full">
+                            <div class="flex flex-col items-center w-[45%] md:w-auto">
+                                <div class="w-full md:w-28 aspect-[3/4] overflow-hidden rounded-3xl shadow-sm border border-white/50 dark:border-white/10"><img src="${topImg}" class="w-full h-full object-cover" /></div>
+                                <span class="text-[9px] md:text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest truncate w-full text-center">${data.topCat || 'Top'}</span>
                             </div>
-                            <div class="flex flex-col items-center">
-                                <img src="${bottomImg}" class="w-28 h-40 object-cover rounded-3xl shadow-sm border border-white/50 dark:border-white/10" />
-                                <span class="text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest">${data.botCat || 'Bottom'}</span>
+                            <div class="flex flex-col items-center w-[45%] md:w-auto">
+                                <div class="w-full md:w-28 aspect-[3/4] overflow-hidden rounded-3xl shadow-sm border border-white/50 dark:border-white/10"><img src="${bottomImg}" class="w-full h-full object-cover" /></div>
+                                <span class="text-[9px] md:text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest truncate w-full text-center">${data.botCat || 'Bottom'}</span>
                             </div>
                         </div>
                         ${data.note ? `<div class="bg-gray-50/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center shadow-inner"><p class="text-sm font-medium">"${data.note}"</p></div>` : ''}
