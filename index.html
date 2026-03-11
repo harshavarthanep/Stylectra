@@ -7,77 +7,132 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    borderRadius: { '2xl': '1rem', '3xl': '1.5rem' },
+                    boxShadow: { 'soft': '0 4px 20px rgba(0, 0, 0, 0.05)' }
+                }
+            }
+        }
+    </script>
     <style>
+        /* Premium UI resets and hiding utility */
+        body { -webkit-tap-highlight-color: transparent; }
         .hidden-view { display: none !important; }
-        .spinner { border: 4px solid rgba(0,0,0,0.1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #09f; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); }
+        /* Smooth scrolling */
+        .scroll-smooth::-webkit-scrollbar { display: none; }
+        .scroll-smooth { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 font-sans h-screen flex flex-col selection:bg-indigo-100">
 
-    <nav class="bg-indigo-600 text-white p-4 shadow-md flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Stylectra</h1>
-        <div id="nav-actions" class="hidden">
-            <button onclick="switchView('dashboard')" class="mx-2 hover:underline">Dashboard</button>
-            <button id="logout-btn" class="mx-2 bg-indigo-800 px-3 py-1 rounded">Logout</button>
+    <nav class="glass-nav sticky top-0 z-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+        <h1 class="text-2xl font-bold tracking-tight text-indigo-600">Stylectra</h1>
+        <div id="nav-actions" class="hidden flex gap-4">
+            <button id="logout-btn" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition">Logout</button>
         </div>
     </nav>
 
-    <main class="flex-grow flex overflow-hidden">
+    <main class="flex-grow flex flex-col md:flex-row overflow-hidden max-w-7xl mx-auto w-full">
         
-        <section id="auth-view" class="w-full flex items-center justify-center">
-            <div class="bg-white p-8 rounded shadow-md w-96">
-                <h2 class="text-xl font-bold mb-4" id="auth-title">Login</h2>
-                <input type="email" id="email" placeholder="Email" class="w-full p-2 border rounded mb-3">
-                <input type="password" id="password" placeholder="Password" class="w-full p-2 border rounded mb-3">
-                <button id="auth-btn" class="w-full bg-indigo-600 text-white p-2 rounded">Login</button>
-                <div class="mt-4 flex justify-between text-sm text-indigo-600">
-                    <button id="toggle-auth" onclick="toggleAuthMode()">Create Account</button>
-                    <button id="forgot-password" onclick="resetPassword()">Forgot Password?</button>
+        <section id="auth-view" class="w-full h-full flex items-center justify-center p-6">
+            <div class="bg-white p-8 rounded-3xl shadow-soft w-full max-w-md">
+                <h2 class="text-2xl font-bold mb-6 tracking-tight text-center" id="auth-title">Welcome Back</h2>
+                <input type="email" id="email" placeholder="Email Address" class="w-full p-4 bg-gray-100 rounded-2xl mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <input type="password" id="password" placeholder="Password" class="w-full p-4 bg-gray-100 rounded-2xl mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                <button id="auth-btn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold p-4 rounded-2xl shadow-md transition">Login</button>
+                <div class="mt-6 flex justify-between text-sm font-medium text-gray-500">
+                    <button id="toggle-auth" onclick="toggleAuthMode()" class="hover:text-indigo-600">Create Account</button>
+                    <button id="forgot-password" onclick="resetPassword()" class="hover:text-indigo-600">Forgot Password?</button>
                 </div>
-                <div id="auth-error" class="text-red-500 text-sm mt-2 hidden"></div>
+                <div id="auth-error" class="text-red-500 text-sm mt-4 text-center hidden"></div>
             </div>
         </section>
 
-        <section id="dashboard-view" class="w-full hidden-view flex">
-            <aside class="w-64 bg-white border-r shadow-sm flex flex-col">
-                <button onclick="loadSubView('wardrobe')" class="p-4 border-b hover:bg-gray-100 text-left font-semibold">👕 Wardrobe</button>
-                <button onclick="loadSubView('styling')" class="p-4 border-b hover:bg-gray-100 text-left font-semibold">✨ Styling</button>
-                <button onclick="loadSubView('memzone')" class="p-4 border-b hover:bg-gray-100 text-left font-semibold">📸 MemZone</button>
+        <section id="dashboard-view" class="w-full h-full hidden-view flex flex-col md:flex-row">
+            
+            <aside class="md:w-64 bg-white md:border-r border-gray-200 md:h-full flex-shrink-0 flex md:flex-col justify-around md:justify-start p-4 md:p-6 order-last md:order-first border-t md:border-t-0 z-40 relative">
+                <button onclick="loadSubView('wardrobe')" class="nav-btn w-full text-center md:text-left p-3 md:mb-2 rounded-2xl font-semibold text-gray-500 hover:bg-gray-100 hover:text-indigo-600 transition flex flex-col md:flex-row items-center gap-2">
+                    <span class="text-xl">👕</span> <span class="text-xs md:text-base">Wardrobe</span>
+                </button>
+                <button onclick="loadSubView('styling')" class="nav-btn w-full text-center md:text-left p-3 md:mb-2 rounded-2xl font-semibold text-gray-500 hover:bg-gray-100 hover:text-indigo-600 transition flex flex-col md:flex-row items-center gap-2">
+                    <span class="text-xl">✨</span> <span class="text-xs md:text-base">Styling</span>
+                </button>
+                <button onclick="loadSubView('memzone')" class="nav-btn w-full text-center md:text-left p-3 md:mb-2 rounded-2xl font-semibold text-gray-500 hover:bg-gray-100 hover:text-indigo-600 transition flex flex-col md:flex-row items-center gap-2">
+                    <span class="text-xl">📸</span> <span class="text-xs md:text-base">MemZone</span>
+                </button>
             </aside>
 
-            <div class="flex-grow p-6 overflow-y-auto" id="main-content">
+            <div class="flex-grow p-6 overflow-y-auto scroll-smooth bg-gray-50" id="main-content">
                 
-                <div id="subview-wardrobe" class="hidden-view">
-                    <h2 class="text-2xl font-bold mb-4">Your Wardrobes</h2>
-                    <button onclick="openNewWardrobeModal()" class="bg-indigo-600 text-white px-4 py-2 rounded mb-4">+ Create New Wardrobe</button>
+                <div id="subview-wardrobe" class="hidden-view max-w-5xl mx-auto pb-20 md:pb-0">
+                    <div class="flex justify-between items-center mb-8">
+                        <h2 class="text-3xl font-bold tracking-tight">Wardrobe</h2>
+                        <button onclick="openNewWardrobeModal()" class="bg-indigo-600 text-white px-5 py-2.5 rounded-full font-medium shadow-md hover:bg-indigo-700 transition">+ New</button>
+                    </div>
                     
-                    <div id="wardrobe-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div id="new-wardrobe-form" class="hidden bg-white p-6 rounded-3xl shadow-soft mb-8 transition-all">
+                        <h3 class="font-bold text-lg mb-4">Create New Wardrobe</h3>
+                        <input type="text" id="w-name" placeholder="Wardrobe Name (e.g., Summer Collection)" class="w-full p-3 bg-gray-50 rounded-xl mb-4 focus:ring-2 outline-none">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <select id="w-gender" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2">
+                                <option value="" disabled selected>Select Category</option>
+                                <option>Women</option><option>Men</option>
+                            </select>
+                            <select id="w-skin" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2">
+                                <option value="" disabled selected>Select Skin Tone</option>
+                                <option>Fair (Very Light)</option><option>Light</option><option>Medium</option><option>Olive</option><option>Tan</option><option>Brown</option><option>Deep (Dark)</option>
+                            </select>
+                            <select id="w-body" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2">
+                                <option value="" disabled selected>Select Body Shape</option>
+                                <option>Hourglass</option><option>Pear (Triangle)</option><option>Apple (Round)</option><option>Rectangle (Straight)</option><option>Inverted Triangle</option>
+                            </select>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="saveNewWardrobe()" class="bg-indigo-600 text-white px-6 py-2 rounded-xl font-medium">Save</button>
+                            <button onclick="document.getElementById('new-wardrobe-form').classList.add('hidden')" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-xl font-medium">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div id="wardrobe-list" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         </div>
                 </div>
 
-                <div id="subview-styling" class="hidden-view">
-                    <h2 class="text-2xl font-bold mb-4">Styling Studio</h2>
-                    <div class="bg-white p-6 rounded shadow-sm max-w-2xl">
-                        <select id="style-wardrobe-select" class="w-full p-2 border rounded mb-3"><option>Select Wardrobe...</option></select>
-                        <select id="style-occasion" class="w-full p-2 border rounded mb-3">
-                            <option>College</option><option>Office</option><option>Meeting</option><option>Family Out</option>
-                            <option>Outing / Date</option><option>Party</option><option>Gym</option><option>Wedding</option>
+                <div id="subview-styling" class="hidden-view max-w-3xl mx-auto pb-20 md:pb-0">
+                    <h2 class="text-3xl font-bold tracking-tight mb-8">Styling Studio</h2>
+                    <div class="bg-white p-8 rounded-3xl shadow-soft mb-8">
+                        <label class="block text-sm font-semibold text-gray-500 mb-2">Choose Wardrobe</label>
+                        <select id="style-wardrobe-select" class="w-full p-4 bg-gray-50 rounded-2xl mb-6 outline-none focus:ring-2"><option value="">Select Wardrobe...</option></select>
+                        
+                        <label class="block text-sm font-semibold text-gray-500 mb-2">Occasion</label>
+                        <select id="style-occasion" class="w-full p-4 bg-gray-50 rounded-2xl mb-8 outline-none focus:ring-2">
+                            <option>College</option><option>Office</option><option>Meeting</option><option>Family Out</option><option>Spiritual Event</option>
+                            <option>Friends Out</option><option>Outing / Date</option><option>Shopping</option><option>Party</option><option>Trip / Vacation</option>
+                            <option>Wedding</option><option>Reception</option><option>Functions</option><option>Gym</option><option>Sports</option>
                         </select>
-                        <button onclick="generateOutfit()" class="w-full bg-indigo-600 text-white p-2 rounded font-bold">Generate Outfit</button>
+                        
+                        <button onclick="generateOutfit()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-4 rounded-2xl font-bold shadow-md transition">Generate Match</button>
                     </div>
 
-                    <div id="generated-outfit-area" class="mt-8 hidden-view bg-white p-6 rounded shadow-sm border-2 border-indigo-200">
-                        <h3 class="text-xl font-bold mb-4">Recommended Outfit</h3>
-                        <div id="outfit-images-display" class="flex gap-4 mb-4"></div>
-                        <textarea id="memzone-note" placeholder="Add a note (e.g., 'Wore this to Sarah's party')..." class="w-full p-2 border rounded mb-3"></textarea>
-                        <button onclick="saveToMemZone()" class="bg-green-600 text-white px-4 py-2 rounded">Save to MemZone</button>
+                    <div id="generated-outfit-area" class="hidden-view bg-white p-8 rounded-3xl shadow-soft border border-indigo-50">
+                        <h3 class="text-xl font-bold mb-6 text-center">Your Recommended Outfit</h3>
+                        <div id="outfit-images-display" class="flex flex-row justify-center gap-4 md:gap-8 mb-8">
+                            </div>
+                        <div class="border-t pt-6">
+                            <label class="block text-sm font-semibold text-gray-500 mb-2">Save to MemZone (Optional)</label>
+                            <textarea id="memzone-note" placeholder="Add a note (e.g., 'Perfect for the beach party')..." class="w-full p-4 bg-gray-50 rounded-2xl mb-4 outline-none focus:ring-2 resize-none h-24"></textarea>
+                            <button onclick="saveToMemZone()" class="w-full bg-gray-900 text-white px-4 py-3 rounded-2xl font-semibold shadow-md">Save Outfit</button>
+                        </div>
                     </div>
                 </div>
 
-                <div id="subview-memzone" class="hidden-view">
-                    <h2 class="text-2xl font-bold mb-4">MemZone History</h2>
-                    <div id="memzone-list" class="space-y-4">
+                <div id="subview-memzone" class="hidden-view max-w-3xl mx-auto pb-20 md:pb-0">
+                    <h2 class="text-3xl font-bold tracking-tight mb-8">MemZone</h2>
+                    <div id="memzone-list" class="space-y-6">
                         </div>
                 </div>
 
@@ -88,8 +143,9 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, collection, doc, setDoc, getDocs, addDoc, query } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, setDoc, getDocs, addDoc, updateDoc, arrayUnion, query, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // ADD YOUR FIREBASE CONFIG HERE
         const firebaseConfig = {
             apiKey: "AIzaSyCcOr6SrXpznpXhyGB2Og4rFPqJIS7M0cA",
             authDomain: "stylectra-71660.firebaseapp.com",
@@ -106,7 +162,10 @@
         let currentUser = null;
         let isLoginMode = true;
 
-        // UI Routing
+        // Current Generated Outfit State
+        let currentGeneratedImages = { topId: null, bottomId: null };
+
+        // --- UI Routing & Navigation ---
         window.switchView = (viewId) => {
             document.getElementById('auth-view').classList.add('hidden-view');
             document.getElementById('dashboard-view').classList.add('hidden-view');
@@ -114,7 +173,7 @@
             
             if(viewId === 'dashboard') {
                 document.getElementById('nav-actions').classList.remove('hidden');
-                loadSubView('wardrobe'); // Default subview
+                loadSubView('wardrobe');
             } else {
                 document.getElementById('nav-actions').classList.add('hidden');
             }
@@ -126,11 +185,19 @@
             document.getElementById('subview-memzone').classList.add('hidden-view');
             document.getElementById(`subview-${subId}`).classList.remove('hidden-view');
             
+            // Highlight active nav button
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-indigo-50', 'text-indigo-600');
+                btn.classList.add('text-gray-500');
+            });
+            event?.currentTarget?.classList.add('bg-indigo-50', 'text-indigo-600');
+            event?.currentTarget?.classList.remove('text-gray-500');
+
             if(subId === 'wardrobe') fetchWardrobes();
             if(subId === 'memzone') fetchMemZone();
         };
 
-        // Auth Logic
+        // --- Auth Logic ---
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 currentUser = user;
@@ -143,7 +210,7 @@
 
         window.toggleAuthMode = () => {
             isLoginMode = !isLoginMode;
-            document.getElementById('auth-title').innerText = isLoginMode ? "Login" : "Sign Up";
+            document.getElementById('auth-title').innerText = isLoginMode ? "Welcome Back" : "Create Account";
             document.getElementById('auth-btn').innerText = isLoginMode ? "Login" : "Sign Up";
             document.getElementById('toggle-auth').innerText = isLoginMode ? "Create Account" : "Back to Login";
         };
@@ -153,40 +220,42 @@
             const password = document.getElementById('password').value;
             const errorDiv = document.getElementById('auth-error');
             errorDiv.classList.add('hidden');
+            const btn = document.getElementById('auth-btn');
+            btn.innerText = "Processing...";
 
             try {
-                if(isLoginMode) {
-                    await signInWithEmailAndPassword(auth, email, password);
-                } else {
-                    await createUserWithEmailAndPassword(auth, email, password);
-                }
+                if(isLoginMode) await signInWithEmailAndPassword(auth, email, password);
+                else await createUserWithEmailAndPassword(auth, email, password);
             } catch (error) {
-                errorDiv.innerText = error.message;
+                errorDiv.innerText = error.message.replace("Firebase: ", "");
                 errorDiv.classList.remove('hidden');
+                btn.innerText = isLoginMode ? "Login" : "Sign Up";
             }
         });
 
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        window.resetPassword = () => {
-            const email = document.getElementById('email').value;
-            if(!email) return alert("Please enter your email first.");
-            sendPasswordResetEmail(auth, email).then(() => alert("Password reset email sent!")).catch(e => alert(e.message));
+        // --- Wardrobe Logic ---
+        window.openNewWardrobeModal = () => {
+            const form = document.getElementById('new-wardrobe-form');
+            form.classList.toggle('hidden');
         };
 
-        // Wardrobe Logic (Firestore for text, LocalForage for images)
-        window.openNewWardrobeModal = async () => {
-            const name = prompt("Enter Wardrobe Name:");
-            if(!name) return;
-            const gender = prompt("Gender Category (Men/Women):", "Women");
-            const skinTone = prompt("Skin Tone (Fair, Medium, Deep...):", "Medium");
-            const bodyShape = prompt("Body Shape (Hourglass, Pear, Apple...):", "Hourglass");
+        window.saveNewWardrobe = async () => {
+            const name = document.getElementById('w-name').value;
+            const gender = document.getElementById('w-gender').value;
+            const skinTone = document.getElementById('w-skin').value;
+            const bodyShape = document.getElementById('w-body').value;
+
+            if(!name || !gender || !skinTone || !bodyShape) return alert("Please fill all fields.");
 
             try {
                 const userRef = collection(db, `users/${currentUser.uid}/wardrobes`);
                 await addDoc(userRef, { name, gender, skinTone, bodyShape, items: [] });
+                document.getElementById('new-wardrobe-form').classList.add('hidden');
+                document.getElementById('w-name').value = '';
                 fetchWardrobes();
-            } catch (e) { console.error("Error adding document: ", e); }
+            } catch (e) { alert("Error saving wardrobe."); }
         };
 
         window.fetchWardrobes = async () => {
@@ -199,34 +268,69 @@
             
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
+                const itemCount = data.items ? data.items.length : 0;
                 
-                // Add to Wardrobe UI
+                // Card UI
                 list.innerHTML += `
-                    <div class="bg-white p-4 border rounded shadow-sm">
-                        <h3 class="font-bold text-lg">${data.name} (${data.gender})</h3>
-                        <p class="text-sm text-gray-500">Skin: ${data.skinTone} | Body: ${data.bodyShape}</p>
-                        <div class="mt-4">
-                            <label class="block text-sm font-semibold mb-1">Add Item (Browser Cache)</label>
-                            <input type="file" accept="image/*" id="file-${docSnap.id}" class="text-sm w-full mb-2">
-                            <select id="cat-${docSnap.id}" class="w-full p-1 border rounded mb-2">
-                                <option>Top</option><option>Bottom</option><option>Footwear</option><option>Dress</option>
+                    <div class="bg-white p-6 rounded-3xl shadow-soft border border-gray-100 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-xl">${data.name}</h3>
+                                <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-lg font-bold">${data.gender}</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-4">${data.skinTone} • ${data.bodyShape} • ${itemCount} items</p>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-dashed border-gray-300">
+                            <label class="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">Add Clothing Item</label>
+                            
+                            <div class="flex items-center gap-4 mb-3">
+                                <div class="w-16 h-16 bg-gray-200 rounded-xl overflow-hidden flex items-center justify-center border border-gray-300 relative">
+                                    <span class="text-2xl text-gray-400 absolute z-0">+</span>
+                                    <img id="preview-${docSnap.id}" class="w-full h-full object-cover hidden relative z-10" />
+                                </div>
+                                <input type="file" accept="image/*" id="file-${docSnap.id}" onchange="previewImage(this, '${docSnap.id}')" class="text-sm w-full file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                            </div>
+
+                            <select id="cat-${docSnap.id}" class="w-full p-3 bg-white border border-gray-200 rounded-xl mb-3 outline-none focus:ring-2 text-sm">
+                                <option value="" disabled selected>Select Item Type...</option>
+                                <option>Top</option><option>Bottom</option><option>Dress</option><option>Kurti</option>
+                                <option>Shirt</option><option>T-Shirt</option><option>Pant</option><option>Footwear</option>
                             </select>
-                            <button onclick="uploadLocalItem('${docSnap.id}')" class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded text-sm w-full">Save Image to Device</button>
+                            <button onclick="uploadLocalItem('${docSnap.id}')" id="btn-${docSnap.id}" class="bg-gray-900 text-white px-4 py-2.5 rounded-xl text-sm font-semibold w-full shadow-md hover:bg-gray-800 transition">Save to Wardrobe</button>
                         </div>
                     </div>
                 `;
 
-                // Add to Styling Select
                 select.innerHTML += `<option value="${docSnap.id}">${data.name}</option>`;
             });
         };
 
-        // IMAGE HANDLING: Convert to Base64 and save to IndexedDB via LocalForage
+        // --- Image Handling & Storage ---
+        window.previewImage = (input, id) => {
+            const preview = document.getElementById(`preview-${id}`);
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.classList.add('hidden');
+                preview.src = '';
+            }
+        };
+
         window.uploadLocalItem = async (wardrobeId) => {
             const fileInput = document.getElementById(`file-${wardrobeId}`);
             const category = document.getElementById(`cat-${wardrobeId}`).value;
-            if(!fileInput.files.length) return alert("Select an image first.");
+            const btn = document.getElementById(`btn-${wardrobeId}`);
+            
+            if(!fileInput.files.length) return alert("Please select an image first.");
+            if(!category) return alert("Please select the clothing type.");
 
+            btn.innerText = "Saving...";
             const file = fileInput.files[0];
             const reader = new FileReader();
             
@@ -234,58 +338,157 @@
                 const base64Data = reader.result;
                 const imageId = `img_${Date.now()}`;
                 
-                // Save massive base64 string locally to save Firebase costs
+                // 1. Save Image locally to IndexedDB
                 await localforage.setItem(imageId, base64Data);
                 
-                // Save tiny reference in Firestore
+                // 2. Save Reference to Firebase Wardrobe
                 const wardrobeRef = doc(db, `users/${currentUser.uid}/wardrobes`, wardrobeId);
-                // In production, fetch array, push, and update. Simplified here:
-                alert(`${category} saved securely to your local device cache!`);
+                await updateDoc(wardrobeRef, {
+                    items: arrayUnion({ imageId: imageId, category: category })
+                });
+
+                // Reset UI
+                btn.innerText = "Save to Wardrobe";
+                fileInput.value = "";
+                document.getElementById(`preview-${wardrobeId}`).classList.add('hidden');
+                document.getElementById(`cat-${wardrobeId}`).selectedIndex = 0;
+                
+                alert(`Saved! Item securely cached on your device.`);
+                fetchWardrobes(); // Refresh counts
             };
             reader.readAsDataURL(file);
         };
 
-        // Styling & MemZone Simulation
-        window.generateOutfit = () => {
+        // --- Outfit Generator Logic ---
+        window.generateOutfit = async () => {
             const wid = document.getElementById('style-wardrobe-select').value;
-            if(!wid) return alert("Select a wardrobe.");
+            if(!wid) return alert("Please select a wardrobe first.");
             
-            document.getElementById('generated-outfit-area').classList.remove('hidden-view');
-            // Since actual matching algorithms require complex backend logic, 
-            // for the SPA frontend, we display placeholders representing the local cache retrieval.
-            document.getElementById('outfit-images-display').innerHTML = `
-                <div class="h-32 w-24 bg-gray-200 border-dashed border-2 flex items-center justify-center text-sm text-gray-500">Matched Top</div>
-                <div class="h-32 w-24 bg-gray-200 border-dashed border-2 flex items-center justify-center text-sm text-gray-500">Matched Bottom</div>
-            `;
+            const btn = event.target;
+            btn.innerText = "Matching...";
+
+            try {
+                // Fetch the wardrobe items from Firebase
+                const docRef = doc(db, `users/${currentUser.uid}/wardrobes`, wid);
+                const docSnap = await getDoc(docRef);
+                const items = docSnap.data().items || [];
+
+                // Categorize
+                // Mapping specific types to logical Top/Bottom behavior for the generator
+                const topCategories = ['Top', 'Shirt', 'T-Shirt', 'Kurti'];
+                const bottomCategories = ['Bottom', 'Pant'];
+                const fullBodyCategories = ['Dress'];
+
+                const tops = items.filter(i => topCategories.includes(i.category));
+                const bottoms = items.filter(i => bottomCategories.includes(i.category));
+                
+                if (tops.length === 0 || bottoms.length === 0) {
+                    btn.innerText = "Generate Match";
+                    return alert("Not enough items! You need at least one 'Top' and one 'Bottom' saved in this wardrobe to generate an outfit.");
+                }
+
+                // Randomly select one of each
+                const selectedTop = tops[Math.floor(Math.random() * tops.length)];
+                const selectedBottom = bottoms[Math.floor(Math.random() * bottoms.length)];
+
+                // Fetch Base64 images from Local Cache
+                const topImgData = await localforage.getItem(selectedTop.imageId);
+                const bottomImgData = await localforage.getItem(selectedBottom.imageId);
+
+                // Save state for MemZone
+                currentGeneratedImages.topId = selectedTop.imageId;
+                currentGeneratedImages.bottomId = selectedBottom.imageId;
+
+                // Render UI
+                document.getElementById('generated-outfit-area').classList.remove('hidden-view');
+                document.getElementById('outfit-images-display').innerHTML = `
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Top</span>
+                        <div class="h-48 w-36 md:h-64 md:w-48 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <img src="${topImgData}" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wide">Bottom</span>
+                        <div class="h-48 w-36 md:h-64 md:w-48 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                            <img src="${bottomImgData}" class="w-full h-full object-cover" />
+                        </div>
+                    </div>
+                `;
+                btn.innerText = "Generate Match";
+
+            } catch (e) {
+                console.error(e);
+                alert("Error generating outfit.");
+                btn.innerText = "Generate Match";
+            }
         };
 
+        // --- MemZone Logic ---
         window.saveToMemZone = async () => {
             const note = document.getElementById('memzone-note').value;
             const occasion = document.getElementById('style-occasion').value;
             
+            if(!currentGeneratedImages.topId) return;
+
+            const btn = event.target;
+            btn.innerText = "Saving...";
+
             try {
                 const memRef = collection(db, `users/${currentUser.uid}/memzone`);
-                await addDoc(memRef, { note, occasion, date: new Date().toISOString() });
+                await addDoc(memRef, { 
+                    note: note, 
+                    occasion: occasion, 
+                    date: new Date().toISOString(),
+                    topId: currentGeneratedImages.topId,
+                    bottomId: currentGeneratedImages.bottomId
+                });
+                
                 alert("Saved to MemZone!");
                 document.getElementById('memzone-note').value = '';
                 document.getElementById('generated-outfit-area').classList.add('hidden-view');
-            } catch(e) { console.error(e); }
+                btn.innerText = "Save Outfit";
+            } catch(e) { console.error(e); btn.innerText = "Save Outfit"; }
         };
 
         window.fetchMemZone = async () => {
             const list = document.getElementById('memzone-list');
-            list.innerHTML = '';
+            list.innerHTML = '<p class="text-gray-500">Loading memories...</p>';
+            
             const q = query(collection(db, `users/${currentUser.uid}/memzone`));
             const snapshot = await getDocs(q);
-            snapshot.forEach((docSnap) => {
+            list.innerHTML = '';
+
+            if (snapshot.empty) {
+                list.innerHTML = '<p class="text-gray-500 text-center py-10 bg-white rounded-3xl shadow-soft">No memories saved yet. Go to Styling to save an outfit!</p>';
+                return;
+            }
+
+            for (const docSnap of snapshot.docs) {
                 const data = docSnap.data();
+                
+                // Fetch images from local cache
+                const topImg = data.topId ? await localforage.getItem(data.topId) : '';
+                const bottomImg = data.bottomId ? await localforage.getItem(data.bottomId) : '';
+
                 list.innerHTML += `
-                    <div class="bg-white p-4 border rounded shadow-sm border-l-4 border-l-indigo-500">
-                        <div class="text-xs text-gray-500 mb-1">${new Date(data.date).toLocaleDateString()} - ${data.occasion}</div>
-                        <p class="font-medium text-gray-800">"${data.note}"</p>
+                    <div class="bg-white p-6 rounded-3xl shadow-soft border border-gray-100">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="font-bold text-lg">${data.occasion}</h4>
+                                <span class="text-xs text-gray-400 font-medium">${new Date(data.date).toLocaleDateString(undefined, {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4 mb-4">
+                            ${topImg ? `<img src="${topImg}" class="w-20 h-24 object-cover rounded-xl border border-gray-100" />` : ''}
+                            ${bottomImg ? `<img src="${bottomImg}" class="w-20 h-24 object-cover rounded-xl border border-gray-100" />` : ''}
+                        </div>
+
+                        ${data.note ? `<div class="bg-gray-50 p-4 rounded-2xl"><p class="text-gray-700 text-sm italic">"${data.note}"</p></div>` : ''}
                     </div>
                 `;
-            });
+            }
         };
     </script>
 </body>
