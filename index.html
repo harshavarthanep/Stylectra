@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stylectra - Premium Outfit Studio</title>
+    
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
@@ -31,10 +38,7 @@
         }
     </script>
     <style>
-        body { 
-            -webkit-tap-highlight-color: transparent; 
-            transition: background-color 0.5s ease;
-        }
+        body { -webkit-tap-highlight-color: transparent; transition: background-color 0.5s ease; }
         
         /* Ambient Fashion Mesh Backgrounds */
         .bg-mesh-light {
@@ -65,34 +69,14 @@
         .hidden-view { display: none !important; }
         
         /* Ultra-Premium Glassmorphism (Adapts to Light/Dark) */
-        .glass { 
-            background: rgba(255, 255, 255, 0.65); 
-            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); 
-            border-bottom: 1px solid rgba(255,255,255,0.5); 
-        }
-        .dark .glass { 
-            background: rgba(30, 30, 35, 0.65); 
-            border-bottom: 1px solid rgba(255,255,255,0.08); 
-        }
+        .glass { background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border-bottom: 1px solid rgba(255,255,255,0.5); }
+        .dark .glass { background: rgba(30, 30, 35, 0.65); border-bottom: 1px solid rgba(255,255,255,0.08); }
 
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); 
-            border: 1px solid rgba(255,255,255,0.8); 
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04), inset 0 1px 1px rgba(255, 255, 255, 0.8); 
-        }
-        .dark .glass-card { 
-            background: rgba(20, 20, 25, 0.7); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05); 
-        }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(30px) saturate(180%); -webkit-backdrop-filter: blur(30px) saturate(180%); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 8px 30px rgba(0,0,0,0.04), inset 0 1px 1px rgba(255, 255, 255, 0.8); }
+        .dark .glass-card { background: rgba(20, 20, 25, 0.7); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 30px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255, 255, 255, 0.05); }
 
-        .glass-input {
-            background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255,255,255,0.9);
-        }
-        .dark .glass-input {
-            background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1); color: white;
-        }
+        .glass-input { background: rgba(255, 255, 255, 0.8); border: 1px solid rgba(255,255,255,0.9); }
+        .dark .glass-input { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1); color: white; }
 
         .glass-modal { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
         .dark .glass-modal { background: rgba(0, 0, 0, 0.6); }
@@ -161,10 +145,11 @@
             <div class="flex-grow p-6 md:p-10 overflow-y-auto scroll-smooth" id="main-content">
                 
                 <div id="subview-wardrobe" class="hidden-view max-w-6xl mx-auto pb-24 md:pb-0">
-                    <div class="flex justify-between items-center mb-10">
-                        <h2 class="text-4xl font-extrabold tracking-tight">Wardrobe</h2>
-                        <button onclick="openNewWardrobeModal()" class="bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-full font-bold shadow-floating hover:scale-105 transition-transform flex items-center gap-2">
-                            <span>+</span> New Collection
+                    
+                    <div class="flex flex-row justify-between items-center mb-8 md:mb-10 gap-2">
+                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Wardrobe</h2>
+                        <button onclick="openNewWardrobeModal()" class="bg-gray-900 dark:bg-white text-white dark:text-black px-4 py-2.5 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-floating hover:scale-105 transition-transform flex items-center gap-2">
+                            <span>+</span> <span class="hidden sm:inline">New Collection</span><span class="sm:hidden">New</span>
                         </button>
                     </div>
                     
@@ -193,8 +178,8 @@
                 </div>
 
                 <div id="subview-styling" class="hidden-view max-w-3xl mx-auto pb-24 md:pb-0">
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-10">Styling Studio</h2>
-                    <div class="glass-card p-10 rounded-4xl shadow-floating mb-10">
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 md:mb-10">Styling Studio</h2>
+                    <div class="glass-card p-8 md:p-10 rounded-4xl shadow-floating mb-10">
                         <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Choose Collection</label>
                         <select id="style-wardrobe-select" class="w-full p-4 glass-input rounded-2xl mb-8 outline-none focus:ring-2 shadow-sm font-medium"><option value="">Select Wardrobe...</option></select>
                         
@@ -210,9 +195,9 @@
                         </button>
                     </div>
 
-                    <div id="generated-outfit-area" class="hidden-view glass-card p-10 rounded-4xl shadow-floating relative overflow-hidden">
+                    <div id="generated-outfit-area" class="hidden-view glass-card p-8 md:p-10 rounded-4xl shadow-floating relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
-                        <h3 class="text-3xl font-extrabold mb-10 text-center mt-2 tracking-tight">Your Outfit</h3>
+                        <h3 class="text-2xl md:text-3xl font-extrabold mb-8 md:mb-10 text-center mt-2 tracking-tight">Your Outfit</h3>
                         <div id="outfit-images-display" class="flex flex-row justify-center gap-6 md:gap-12 mb-12"></div>
                         <div class="bg-gray-50/50 dark:bg-black/30 p-6 rounded-3xl border border-white/50 dark:border-white/10 shadow-inner">
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Capture to MemZone</label>
@@ -223,7 +208,7 @@
                 </div>
 
                 <div id="subview-memzone" class="hidden-view max-w-4xl mx-auto pb-24 md:pb-0">
-                    <h2 class="text-4xl font-extrabold tracking-tight mb-10">MemZone</h2>
+                    <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 md:mb-10">MemZone</h2>
                     <div id="memzone-list" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
                 </div>
 
@@ -231,13 +216,13 @@
         </section>
 
         <div id="explore-modal" class="hidden glass-modal fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-4xl h-[85vh] flex flex-col transition-all relative">
+            <div class="glass-card p-6 md:p-8 rounded-4xl shadow-floating w-full max-w-4xl h-[85vh] flex flex-col transition-all relative">
                 <button onclick="closeExploreModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-200/50 dark:bg-white/10 rounded-full flex items-center justify-center font-bold hover:bg-red-100 dark:hover:bg-red-500/20 text-gray-800 dark:text-white transition">X</button>
                 <div class="mb-6">
-                    <h3 class="font-extrabold text-3xl tracking-tight" id="explore-title">Collection</h3>
+                    <h3 class="font-extrabold text-2xl md:text-3xl tracking-tight" id="explore-title">Collection</h3>
                     <p class="text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">Manage all your saved pieces</p>
                 </div>
-                <div id="explore-grid" class="flex-grow overflow-y-auto pr-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 scroll-smooth">
+                <div id="explore-grid" class="flex-grow overflow-y-auto pr-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 scroll-smooth">
                     </div>
             </div>
         </div>
@@ -457,7 +442,7 @@
                 catOptions.forEach(opt => catSelectHTML += `<option>${opt}</option>`);
 
                 list.innerHTML += `
-                    <div class="glass-card p-8 rounded-4xl flex flex-col justify-between relative group/card">
+                    <div class="glass-card p-6 md:p-8 rounded-4xl flex flex-col justify-between relative group/card">
                         
                         <div class="absolute top-6 right-6 flex gap-2">
                             <button onclick="openEditModal('${docSnap.id}', '${data.name}', '${data.gender}', '${data.skinTone}', '${data.bodyShape}')" class="w-9 h-9 flex items-center justify-center bg-white/80 dark:bg-black/40 backdrop-blur-sm border border-white dark:border-white/10 rounded-full shadow-sm hover:scale-105 transition">✏️</button>
@@ -467,7 +452,7 @@
                         <div>
                             <div class="flex flex-col items-start mb-6 pr-20">
                                 <span class="bg-indigo-50/80 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 text-[11px] px-3 py-1 rounded-full font-bold border border-indigo-100 dark:border-indigo-800 mb-3 tracking-wide uppercase">${data.gender}</span>
-                                <h3 class="font-extrabold text-3xl tracking-tight truncate w-full">${data.name}</h3>
+                                <h3 class="font-extrabold text-2xl md:text-3xl tracking-tight truncate w-full">${data.name}</h3>
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">${data.skinTone} • ${data.bodyShape}</p>
                             </div>
                             
@@ -486,8 +471,8 @@
                         
                         <div class="pt-6 border-t border-gray-200/50 dark:border-white/10">
                             <div class="flex items-center gap-4 mb-4">
-                                <div class="w-16 h-16 bg-white/80 dark:bg-black/40 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0 border border-white dark:border-white/10 shadow-sm">
-                                    <span class="text-2xl text-gray-300 dark:text-gray-600 absolute z-0 font-light">📷</span>
+                                <div class="w-16 h-16 bg-white/50 dark:bg-black/20 rounded-2xl overflow-hidden flex items-center justify-center relative shrink-0 border-2 border-dashed border-gray-300 dark:border-gray-600">
+                                    <svg class="w-6 h-6 text-gray-400 dark:text-gray-500 absolute z-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                     <img id="preview-${docSnap.id}" class="w-full h-full object-cover hidden relative z-10" />
                                 </div>
                                 <div class="flex gap-2 w-full">
@@ -535,7 +520,7 @@
                 grid.innerHTML += `
                     <div class="flex flex-col items-center bg-white/50 dark:bg-black/30 p-4 rounded-3xl border border-white/50 dark:border-white/10 shadow-sm relative">
                         <button onclick="deleteItemFromExplore('${wId}', '${item.imageId}', '${item.category}')" class="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center shadow-md hover:bg-red-600 transition z-10">X</button>
-                        <div class="w-full h-40 rounded-2xl overflow-hidden mb-3">
+                        <div class="w-full h-32 md:h-40 rounded-2xl overflow-hidden mb-3">
                             <img src="${imgData}" class="w-full h-full object-cover">
                         </div>
                         <select id="edit-cat-${item.imageId}" class="w-full p-2 text-xs font-bold glass-input rounded-xl mb-2">${catSelectHTML}</select>
@@ -547,7 +532,7 @@
 
         window.closeExploreModal = () => {
             document.getElementById('explore-modal').classList.add('hidden');
-            fetchWardrobes(); // Refresh main view to reflect any changes
+            fetchWardrobes();
         };
 
         window.updateItemCategory = async (wId, imgId, oldCat, selectId) => {
@@ -577,6 +562,7 @@
             document.getElementById('edit-w-id').value = id;
             document.getElementById('edit-w-name').value = name;
             document.getElementById('edit-w-gender').value = gender;
+            document.getElementById('edit-w-gender').disabled = true;
             document.getElementById('edit-w-skin').value = skin;
             document.getElementById('edit-w-body').value = body;
             document.getElementById('edit-modal').classList.remove('hidden');
@@ -602,7 +588,6 @@
             fetchWardrobes();
         };
 
-        // --- Uploading logic adapted for 2 buttons ---
         window.previewImage = (input, id) => {
             const preview = document.getElementById(`preview-${id}`);
             if (input.files && input.files[0]) {
@@ -740,24 +725,20 @@
 
                 list.innerHTML += `
                     <div class="glass-card rounded-4xl pt-4 px-8 pb-8 relative group overflow-hidden">
-                        
                         <div class="flex justify-center mb-4">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-14 h-7 text-gray-400 dark:text-gray-600">
                                 <path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path>
                                 <path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path>
                             </svg>
                         </div>
-
                         <div class="absolute top-6 right-6 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button onclick="openMemZoneInfo('${dataStr}')" class="w-9 h-9 bg-white/80 dark:bg-black/50 backdrop-blur-sm border border-white dark:border-white/10 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Info/Edit">ℹ️</button>
                             <button onclick="deleteMemZone('${docSnap.id}')" class="w-9 h-9 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-100 dark:border-red-900 text-red-500 rounded-full flex items-center justify-center shadow-sm hover:scale-105 transition-transform" title="Delete">🗑️</button>
                         </div>
-
                         <div class="text-center mb-6">
                             <h4 class="font-extrabold text-2xl tracking-tight">${data.occasion}</h4>
                             <span class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">${new Date(data.date).toLocaleDateString()}</span>
                         </div>
-                        
                         <div class="flex justify-center gap-5 mb-6">
                             <div class="flex flex-col items-center">
                                 <img src="${topImg}" class="w-28 h-40 object-cover rounded-3xl shadow-sm border border-white/50 dark:border-white/10" />
@@ -768,7 +749,6 @@
                                 <span class="text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest">${data.botCat || 'Bottom'}</span>
                             </div>
                         </div>
-                        
                         ${data.note ? `<div class="bg-gray-50/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center shadow-inner"><p class="text-sm font-medium">"${data.note}"</p></div>` : ''}
                     </div>
                 `;
@@ -779,7 +759,6 @@
             const data = JSON.parse(decodeURIComponent(dataStr));
             document.getElementById('edit-mem-id').value = data.id;
             document.getElementById('edit-mem-note').value = data.note || '';
-            
             document.getElementById('memzone-info-content').innerHTML = `
                 <div class="flex justify-between items-center border-b border-gray-200/50 dark:border-white/10 pb-2 mb-2">
                     <span class="text-gray-500 dark:text-gray-400 font-bold text-xs uppercase tracking-wider">Wardrobe</span>
@@ -810,6 +789,15 @@
             await deleteDoc(doc(db, `users/${currentUser.uid}/memzone`, id));
             fetchMemZone();
         };
+
+        // --- SERVICE WORKER REGISTRATION FOR PWA ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => console.log('ServiceWorker registered with scope:', registration.scope))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
     </script>
 </body>
 </html>
