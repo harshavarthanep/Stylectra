@@ -95,6 +95,11 @@
             Stylectra
         </h1>
         <div class="flex items-center gap-4">
+            
+            <button onclick="installApp()" class="install-app-btn hidden px-4 py-1.5 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm hover:scale-105 transition-transform flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Install
+            </button>
+
             <button onclick="toggleTheme()" class="p-2 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-all text-gray-700 dark:text-gray-200" title="Toggle Theme">
                 <svg id="theme-icon-dark" class="w-5 h-5 hidden dark:block" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                 <svg id="theme-icon-light" class="w-5 h-5 block dark:hidden" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
@@ -120,6 +125,9 @@
                 <input type="email" id="email" placeholder="Email Address" class="w-full p-4 glass-input rounded-2xl mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm font-medium">
                 <input type="password" id="password" placeholder="Password" class="w-full p-4 glass-input rounded-2xl mb-8 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm font-medium">
                 <button id="auth-btn" class="w-full bg-gray-900 dark:bg-white hover:bg-black dark:hover:bg-gray-200 text-white dark:text-black font-bold tracking-wide p-4 rounded-2xl shadow-floating transition-transform hover:-translate-y-0.5">Continue</button>
+                
+                <button onclick="installApp()" class="install-app-btn hidden w-full mt-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-bold tracking-wide p-4 rounded-2xl shadow-sm border border-indigo-100 dark:border-indigo-800 transition-transform hover:-translate-y-0.5">📥 Install Stylectra App</button>
+
                 <div class="mt-8 flex justify-between text-sm font-semibold text-gray-500 dark:text-gray-400">
                     <button id="toggle-auth" onclick="toggleAuthMode()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Create Account</button>
                     <button id="forgot-password" onclick="resetPassword()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Forgot Password?</button>
@@ -148,7 +156,7 @@
                     
                     <div class="flex flex-row justify-between items-center mb-8 md:mb-10 gap-2">
                         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Wardrobe</h2>
-                        <button onclick="openNewWardrobeModal()" class="bg-gray-900 dark:bg-white text-white dark:text-black px-4 py-2.5 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-floating hover:scale-105 transition-transform flex items-center gap-2">
+                        <button onclick="openNewWardrobeModal()" class="bg-gray-900 dark:bg-white text-white dark:text-black px-4 py-2.5 md:px-6 md:py-3 text-sm md:text-base rounded-full font-bold shadow-floating hover:scale-105 transition-transform flex items-center gap-2 shrink-0">
                             <span>+</span> <span class="hidden sm:inline">New Collection</span><span class="sm:hidden">New</span>
                         </button>
                     </div>
@@ -195,10 +203,30 @@
                         </button>
                     </div>
 
-                    <div id="generated-outfit-area" class="hidden-view glass-card p-8 md:p-10 rounded-4xl shadow-floating relative overflow-hidden">
+                    <div id="generated-outfit-area" class="hidden-view glass-card p-8 md:p-10 rounded-4xl shadow-floating relative overflow-hidden transition-all">
                         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-500"></div>
+                        
+                        <div id="near-match-warning" class="hidden bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-700 p-4 rounded-2xl mb-8 flex items-start gap-3 backdrop-blur-sm">
+                            <span class="text-yellow-500 text-xl">⚠️</span>
+                            <div>
+                                <h4 class="font-bold text-yellow-800 dark:text-yellow-400 text-sm">Near Match Found</h4>
+                                <p id="near-match-text" class="text-xs text-yellow-700 dark:text-yellow-500 mt-1 font-medium"></p>
+                            </div>
+                        </div>
+
                         <h3 class="text-2xl md:text-3xl font-extrabold mb-8 md:mb-10 text-center mt-2 tracking-tight">Your Outfit</h3>
                         <div id="outfit-images-display" class="flex flex-row justify-center gap-6 md:gap-12 mb-12"></div>
+                        
+                        <div id="shopping-section" class="hidden mb-10 pt-8 border-t border-gray-200/50 dark:border-white/10">
+                            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Shop For Occasion Wear</h4>
+                            <div class="flex flex-wrap gap-3 justify-center">
+                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#131921] dark:bg-[#ff9900] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-[#ff9900]/20">Amazon</a>
+                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#047BD5] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Flipkart</a>
+                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#ff3f6c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Myntra</a>
+                                <a href="#" target="_blank" class="px-5 py-2.5 bg-[#2c415c] text-white rounded-xl text-xs font-bold shadow-md hover:scale-105 transition border border-white/20">Ajio</a>
+                            </div>
+                        </div>
+
                         <div class="bg-gray-50/50 dark:bg-black/30 p-6 rounded-3xl border border-white/50 dark:border-white/10 shadow-inner">
                             <label class="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Capture to MemZone</label>
                             <textarea id="memzone-note" placeholder="Add a memory note (e.g., 'Perfect for Friday night')..." class="w-full p-4 glass-input rounded-2xl mb-5 outline-none focus:ring-2 shadow-sm resize-none h-24 font-medium"></textarea>
@@ -301,6 +329,34 @@
 
         const womenCategories = ['Top', 'Bottom', 'Dress', 'Kurti', 'Saree', 'Casuals', 'Ethnic Wear', 'Sports Wear', 'Footwear'];
         const menCategories = ['Shirt', 'T-Shirt', 'Pant', 'Ethnic Wear', 'Casuals', 'Sports Wear', 'Footwear'];
+
+        // --- PWA Install Logic ---
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.remove('hidden'));
+        });
+
+        window.installApp = async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.add('hidden'));
+                }
+                deferredPrompt = null;
+            }
+        };
+
+        window.addEventListener('appinstalled', () => {
+            document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.add('hidden'));
+        });
+
+        // Hide install button if already running in standalone app mode
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.add('hidden'));
+        }
 
         // --- Theme Toggle ---
         window.toggleTheme = () => {
@@ -626,7 +682,7 @@
             reader.readAsDataURL(fileInput.files[0]);
         };
 
-        // --- SMART GENERATION ---
+        // --- SMART GENERATION w/ NEAR MATCH FALLBACK ---
         window.generateOutfit = async () => {
             const wid = document.getElementById('style-wardrobe-select').value;
             const occasion = document.getElementById('style-occasion').value;
@@ -634,6 +690,10 @@
             
             const btn = event.target;
             btn.innerHTML = "✨ Matching...";
+
+            // Hide previous warnings & shopping links before generation
+            document.getElementById('near-match-warning').classList.add('hidden');
+            document.getElementById('shopping-section').classList.add('hidden');
 
             try {
                 const docSnap = await getDoc(doc(db, `users/${currentUser.uid}/wardrobes`, wid));
@@ -658,13 +718,32 @@
                 const validTops = items.filter(i => allowedTops.includes(i.category));
                 const validBottoms = items.filter(i => allowedBottoms.includes(i.category));
 
-                if (validTops.length === 0 || validBottoms.length === 0) {
-                    btn.innerHTML = "✨ Generate Match";
-                    return alert(`No suitable clothes found for "${occasion}". Add matching items (e.g., ${allowedTops[0]} & ${allowedBottoms[0]}).`);
-                }
+                let selTop, selBot;
 
-                const selTop = validTops[Math.floor(Math.random() * validTops.length)];
-                const selBot = validBottoms[Math.floor(Math.random() * validBottoms.length)];
+                if (validTops.length === 0 || validBottoms.length === 0) {
+                    // NEAR MATCH FALLBACK LOGIC
+                    const fallbackTops = items.filter(i => ['Top', 'Shirt', 'T-Shirt', 'Kurti', 'Sports Wear', 'Ethnic Wear', 'Dress', 'Saree'].includes(i.category));
+                    const fallbackBottoms = items.filter(i => ['Bottom', 'Pant', 'Casuals', 'Sports Wear'].includes(i.category));
+
+                    if (fallbackTops.length === 0 || fallbackBottoms.length === 0) {
+                        btn.innerHTML = "✨ Generate Match";
+                        return alert("You need to save at least one Top and one Bottom in this wardrobe to generate an outfit.");
+                    }
+
+                    // Select randomly from all available
+                    selTop = fallbackTops[Math.floor(Math.random() * fallbackTops.length)];
+                    selBot = fallbackBottoms[Math.floor(Math.random() * fallbackBottoms.length)];
+
+                    // Show Warning & Shopping Links
+                    document.getElementById('near-match-warning').classList.remove('hidden');
+                    document.getElementById('near-match-text').innerText = `No suitable clothes found for "${occasion}". Try adding items like a ${allowedTops[0]} & ${allowedBottoms[0]}. Displaying near match instead.`;
+                    document.getElementById('shopping-section').classList.remove('hidden');
+
+                } else {
+                    // Exact Match
+                    selTop = validTops[Math.floor(Math.random() * validTops.length)];
+                    selBot = validBottoms[Math.floor(Math.random() * validBottoms.length)];
+                }
 
                 const topImg = await localforage.getItem(selTop.imageId);
                 const botImg = await localforage.getItem(selBot.imageId);
@@ -704,7 +783,7 @@
                 });
                 alert("Saved to MemZone Diary!");
                 document.getElementById('memzone-note').value = '';
-                document.getElementById('generated-outfit-area').classList.add('hidden-view');
+                // Instead of hiding the generated area completely, let's keep it visible but reset the button
                 btn.innerText = "Save to Diary";
             } catch(e) { btn.innerText = "Save to Diary"; }
         };
@@ -794,7 +873,7 @@
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(registration => console.log('ServiceWorker registered with scope:', registration.scope))
+                    .then(registration => console.log('ServiceWorker registered:', registration.scope))
                     .catch(err => console.log('ServiceWorker registration failed:', err));
             });
         }
