@@ -111,7 +111,7 @@
         </div>
     </nav>
 
-    <main class="flex-grow flex flex-col md:flex-row overflow-hidden max-w-[1400px] mx-auto w-full relative">
+    <main class="flex-grow flex flex-col md:flex-row overflow-hidden max-w-[1400px] mx-auto w-full relative z-10">
         
         <section id="auth-view" class="w-full h-full flex items-center justify-center p-6">
             <div class="glass-card p-10 rounded-4xl shadow-floating w-full max-w-md">
@@ -122,10 +122,14 @@
                     <h2 class="text-3xl font-extrabold tracking-tight mb-2" id="auth-title">Sign In</h2>
                     <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Access your styling studio</p>
                 </div>
+                
                 <input type="email" id="email" placeholder="Email Address" class="w-full p-4 glass-input rounded-2xl mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm font-medium">
                 <input type="password" id="password" placeholder="Password" class="w-full p-4 glass-input rounded-2xl mb-8 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition shadow-sm font-medium">
+                
                 <button id="auth-btn" class="w-full bg-gray-900 dark:bg-white hover:bg-black dark:hover:bg-gray-200 text-white dark:text-black font-bold tracking-wide p-4 rounded-2xl shadow-floating transition-transform hover:-translate-y-0.5">Continue</button>
                 
+                <button onclick="installApp()" class="install-app-btn hidden w-full mt-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 font-bold tracking-wide p-4 rounded-2xl shadow-sm border border-indigo-100 dark:border-indigo-800 transition-transform hover:-translate-y-0.5">📥 Install App to Phone</button>
+
                 <div class="mt-8 flex justify-between text-sm font-semibold text-gray-500 dark:text-gray-400">
                     <button id="toggle-auth" onclick="toggleAuthMode()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Create Account</button>
                     <button id="forgot-password" onclick="resetPassword()" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Forgot Password?</button>
@@ -206,7 +210,7 @@
                         <div id="near-match-warning" class="hidden bg-yellow-50/90 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-700 p-4 rounded-3xl mb-8 flex items-start gap-3 backdrop-blur-md shadow-sm">
                             <span class="text-yellow-500 text-2xl mt-0.5">⚠️</span>
                             <div>
-                                <h4 class="font-extrabold text-yellow-800 dark:text-yellow-400 text-sm tracking-tight">Near Match Found</h4>
+                                <h4 class="font-extrabold text-yellow-800 dark:text-yellow-400 text-sm tracking-tight">Near Match Displayed</h4>
                                 <p id="near-match-text" class="text-xs text-yellow-700 dark:text-yellow-500 mt-1 font-medium leading-relaxed"></p>
                             </div>
                         </div>
@@ -238,7 +242,7 @@
             </div>
         </section>
 
-        <div id="explore-modal" class="hidden glass-modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="explore-modal" class="hidden glass-modal fixed inset-0 z-[50] flex items-center justify-center p-4">
             <div class="glass-card p-6 md:p-8 rounded-4xl shadow-floating w-full max-w-4xl h-[85vh] flex flex-col transition-all relative">
                 <button onclick="closeExploreModal()" class="absolute top-6 right-6 w-10 h-10 bg-gray-200/50 dark:bg-white/10 rounded-full flex items-center justify-center font-bold hover:bg-red-100 dark:hover:bg-red-500/20 text-gray-800 dark:text-white transition">X</button>
                 <div class="mb-6">
@@ -249,7 +253,7 @@
             </div>
         </div>
 
-        <div id="edit-modal" class="hidden glass-modal fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div id="edit-modal" class="hidden glass-modal fixed inset-0 z-[50] flex items-center justify-center p-4">
             <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-md transition-all">
                 <h3 class="font-extrabold text-2xl mb-6 tracking-tight">Edit Collection</h3>
                 <input type="hidden" id="edit-w-id">
@@ -270,10 +274,10 @@
 
         <div id="custom-alert-modal" class="hidden glass-modal fixed inset-0 z-[60] flex items-center justify-center p-4">
             <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-sm transition-all text-center">
-                <div id="alert-icon" class="text-4xl mb-4">🔔</div>
+                <div id="alert-icon" class="text-4xl mb-4">⚠️</div>
                 <h3 id="alert-title" class="font-extrabold text-2xl mb-3 tracking-tight">Notice</h3>
                 <p id="alert-message" class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-8 leading-relaxed"></p>
-                <button onclick="closeCustomAlert()" class="w-full bg-gray-900 dark:bg-white text-white dark:text-black py-3.5 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Understood</button>
+                <button onclick="closeCustomAlert()" class="w-full bg-gray-900 dark:bg-white text-white dark:text-black py-3.5 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Got it</button>
             </div>
         </div>
 
@@ -284,7 +288,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16 text-indigo-600 dark:text-indigo-400"><path d="M12 4v4M12 4a2 2 0 1 1 2 2h-2M4 16l8-8 8 8"></path><path d="M4 16h16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z"></path></svg>
                 </div>
                 <h3 class="font-extrabold text-2xl mb-3 tracking-tight">Install Stylectra</h3>
-                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-8 leading-relaxed">Add Stylectra to your home screen for a full-screen native experience, offline access, and faster loading.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-300 font-medium mb-8 leading-relaxed">Add Stylectra to your home screen for a full-screen app experience, offline image caching, and faster loading.</p>
                 <div class="flex gap-3">
                     <button onclick="installApp()" class="flex-grow bg-indigo-600 dark:bg-indigo-500 text-white py-3.5 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Install App</button>
                     <button onclick="closeInstallPrompt()" class="flex-grow bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white py-3.5 rounded-2xl font-bold transition">Maybe Later</button>
@@ -338,7 +342,7 @@
             deferredPrompt = e;
             document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.remove('hidden'));
             
-            // If user is already logged in, show prompt automatically
+            // Show prompt automatically ONLY if user is already logged in
             if(currentUser && !installPromptShownThisSession) {
                 setTimeout(() => document.getElementById('install-prompt-modal').classList.remove('hidden'), 2000);
                 installPromptShownThisSession = true;
@@ -409,12 +413,11 @@
             if(subId === 'memzone') fetchMemZone();
         };
 
-        // --- Auth ---
+        // --- Auth Logic (FIXED & UPGRADED) ---
         onAuthStateChanged(auth, (user) => {
             if (user) { 
                 currentUser = user; 
                 switchView('dashboard'); 
-                // Show install prompt if it's ready
                 if(deferredPrompt && !installPromptShownThisSession) {
                     setTimeout(() => document.getElementById('install-prompt-modal').classList.remove('hidden'), 2000);
                     installPromptShownThisSession = true;
@@ -430,23 +433,43 @@
             document.getElementById('toggle-auth').innerText = isLoginMode ? "Create Account" : "Back to Sign In";
         };
 
+        // Restored & Error-Proof Login/Signup
         document.getElementById('auth-btn').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('auth-error');
-            errorDiv.classList.add('hidden');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
             const btn = document.getElementById('auth-btn');
+
+            if (!email || !password) {
+                return showAlert("Action Required", "Please enter both your email and password to continue.");
+            }
+
             btn.innerText = "Authenticating...";
             try {
-                if(isLoginMode) await signInWithEmailAndPassword(auth, email, password);
-                else await createUserWithEmailAndPassword(auth, email, password);
+                if(isLoginMode) {
+                    await signInWithEmailAndPassword(auth, email, password);
+                } else {
+                    await createUserWithEmailAndPassword(auth, email, password);
+                }
             } catch (error) {
-                errorDiv.innerText = error.message.replace("Firebase: ", "");
-                errorDiv.classList.remove('hidden');
+                showAlert("Authentication Failed", error.message.replace("Firebase: ", ""));
                 btn.innerText = isLoginMode ? "Continue" : "Sign Up";
             }
         });
+
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
+
+        // Restored Forgot Password Function
+        window.resetPassword = async () => {
+            const email = document.getElementById('email').value.trim();
+            if(!email) return showAlert("Action Required", "Please enter your email address in the field above first.");
+            
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showAlert("Success", "A password reset link has been sent to your email!", false);
+            } catch(e) {
+                showAlert("Error", e.message.replace("Firebase: ", ""));
+            }
+        };
 
         // --- Wardrobe Core ---
         window.openNewWardrobeModal = () => document.getElementById('new-wardrobe-form').classList.toggle('hidden');
@@ -457,7 +480,7 @@
             const skinTone = document.getElementById('w-skin').value;
             const bodyShape = document.getElementById('w-body').value;
             
-            if(!name || !gender || !skinTone || !bodyShape) return showAlert("Missing Info", "Please fill out all the fields to create a collection.");
+            if(!name || !gender || !skinTone || !bodyShape) return showAlert("Missing Info", "Please fill out all fields to create a collection.");
 
             const q = query(collection(db, `users/${currentUser.uid}/wardrobes`));
             const snapshot = await getDocs(q);
@@ -661,8 +684,8 @@
             
             const category = document.getElementById(`cat-${wardrobeId}`).value;
             const btn = document.getElementById(`btn-${wardrobeId}`);
-            if(!fileInput.files.length) return showAlert("Missing Image", "Select an image via Gallery or Camera.");
-            if(!category) return showAlert("Missing Category", "Select a clothing category.");
+            if(!fileInput.files.length) return showAlert("Missing Image", "Please select an image via Gallery or Camera.");
+            if(!category) return showAlert("Missing Category", "Please select a clothing category.");
 
             btn.innerText = "Saving...";
             const reader = new FileReader();
