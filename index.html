@@ -834,7 +834,13 @@
                 const data = docSnap.data();
                 const topImg = data.topId ? await localforage.getItem(data.topId) : '';
                 const bottomImg = data.bottomId ? await localforage.getItem(data.bottomId) : '';
-                const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id}));
+                // const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id}));
+
+                // FIX: Safely encode single quotes (%27) to prevent breaking the onclick handler
+                const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id})).replace(/'/g, "%27");
+                
+                // Safely handle quotes in the display note
+                const displayNote = data.note ? data.note.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';                
 
                 list.innerHTML += `
                     <div class="glass-card rounded-4xl pt-4 px-6 md:px-8 pb-8 relative group overflow-hidden">
@@ -863,7 +869,11 @@
         };
 
         window.openMemZoneInfo = (dataStr) => {
-            const data = JSON.parse(decodeURIComponent(dataStr));
+            // const data = JSON.parse(decodeURIComponent(dataStr));
+            // FIX: Safely decode the string back to an object
+            const decodedStr = decodeURIComponent(dataStr);
+            const data = JSON.parse(decodedStr);
+            
             document.getElementById('edit-mem-id').value = data.id;
             document.getElementById('edit-mem-note').value = data.note || '';
             document.getElementById('memzone-info-content').innerHTML = `
