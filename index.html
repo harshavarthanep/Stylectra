@@ -217,13 +217,11 @@
 
                         <h3 class="text-2xl md:text-3xl font-extrabold mb-8 text-center mt-2 tracking-tight">Your Outfit</h3>
                         
-                        <div id="outfit-images-display" class="flex flex-row justify-center gap-4 md:gap-10 mb-10 w-full">
-                            </div>
+                        <div id="outfit-images-display" class="flex flex-row justify-center gap-4 md:gap-10 mb-10 w-full"></div>
                         
                         <div id="shopping-section" class="hidden mb-10 pt-8 border-t border-gray-200/50 dark:border-white/10">
                             <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4 text-center">Shop For Occasion Wear</h4>
-                            <div class="flex flex-wrap gap-2 md:gap-3 justify-center" id="shopping-links-container">
-                                </div>
+                            <div class="flex flex-wrap gap-2 md:gap-3 justify-center" id="shopping-links-container"></div>
                         </div>
 
                         <div class="bg-gray-50/50 dark:bg-black/30 p-5 md:p-6 rounded-3xl border border-white/50 dark:border-white/10 shadow-inner">
@@ -296,6 +294,23 @@
             </div>
         </div>
 
+        <div id="memzone-modal" class="hidden glass-modal fixed inset-0 z-[60] flex items-center justify-center p-4">
+            <div class="glass-card p-8 rounded-4xl shadow-floating w-full max-w-md transition-all text-center">
+                <span class="text-4xl mb-4 block">📸</span>
+                <h3 class="font-extrabold text-2xl mb-2 tracking-tight">Outfit Details</h3>
+                <div id="memzone-info-content" class="text-sm mb-6 space-y-3 bg-gray-50/50 dark:bg-black/30 p-5 rounded-3xl text-left shadow-inner font-medium"></div>
+                
+                <label class="block text-left text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Update Note</label>
+                <input type="hidden" id="edit-mem-id">
+                <textarea id="edit-mem-note" class="w-full p-4 glass-input rounded-3xl mb-6 outline-none focus:ring-2 resize-none h-24 font-medium"></textarea>
+                
+                <div class="flex gap-3">
+                    <button onclick="updateMemZoneNote()" class="flex-grow bg-gray-900 dark:bg-white text-white dark:text-black py-4 rounded-2xl font-bold shadow-md transition hover:-translate-y-0.5">Save Note</button>
+                    <button onclick="document.getElementById('memzone-modal').classList.add('hidden')" class="flex-grow bg-gray-200 dark:bg-white/10 text-gray-800 dark:text-white py-4 rounded-2xl font-bold transition">Close</button>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script type="module">
@@ -342,7 +357,6 @@
             deferredPrompt = e;
             document.querySelectorAll('.install-app-btn').forEach(btn => btn.classList.remove('hidden'));
             
-            // Show prompt automatically ONLY if user is already logged in
             if(currentUser && !installPromptShownThisSession) {
                 setTimeout(() => document.getElementById('install-prompt-modal').classList.remove('hidden'), 2000);
                 installPromptShownThisSession = true;
@@ -413,7 +427,7 @@
             if(subId === 'memzone') fetchMemZone();
         };
 
-        // --- Auth Logic (FIXED & UPGRADED) ---
+        // --- Auth Logic ---
         onAuthStateChanged(auth, (user) => {
             if (user) { 
                 currentUser = user; 
@@ -433,7 +447,6 @@
             document.getElementById('toggle-auth').innerText = isLoginMode ? "Create Account" : "Back to Sign In";
         };
 
-        // Restored & Error-Proof Login/Signup
         document.getElementById('auth-btn').addEventListener('click', async () => {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
@@ -458,7 +471,6 @@
 
         document.getElementById('logout-btn').addEventListener('click', () => signOut(auth));
 
-        // Restored Forgot Password Function
         window.resetPassword = async () => {
             const email = document.getElementById('email').value.trim();
             if(!email) return showAlert("Action Required", "Please enter your email address in the field above first.");
@@ -834,12 +846,11 @@
                 const data = docSnap.data();
                 const topImg = data.topId ? await localforage.getItem(data.topId) : '';
                 const bottomImg = data.bottomId ? await localforage.getItem(data.bottomId) : '';
-                // const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id}));
-
-                // FIX: Safely encode single quotes (%27) to prevent breaking the onclick handler
+                
+                // Safely encode single quotes (%27) to prevent breaking the onclick handler
                 const dataStr = encodeURIComponent(JSON.stringify({...data, id: docSnap.id})).replace(/'/g, "%27");
                 
-                // Safely handle quotes in the display note
+                // Safely handle quotes in the display note text directly
                 const displayNote = data.note ? data.note.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '';                
 
                 list.innerHTML += `
@@ -862,15 +873,14 @@
                                 <span class="text-[9px] md:text-[10px] text-gray-400 font-bold mt-2.5 uppercase tracking-widest truncate w-full text-center">${data.botCat || 'Bottom'}</span>
                             </div>
                         </div>
-                        ${data.note ? `<div class="bg-gray-50/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center shadow-inner"><p class="text-sm font-medium">"${data.note}"</p></div>` : ''}
+                        ${data.note ? `<div class="bg-gray-50/50 dark:bg-black/30 p-4 rounded-2xl border border-white/50 dark:border-white/5 text-center shadow-inner"><p class="text-sm font-medium">"${displayNote}"</p></div>` : ''}
                     </div>
                 `;
             }
         };
 
         window.openMemZoneInfo = (dataStr) => {
-            // const data = JSON.parse(decodeURIComponent(dataStr));
-            // FIX: Safely decode the string back to an object
+            // Safely decode the string back to an object
             const decodedStr = decodeURIComponent(dataStr);
             const data = JSON.parse(decodedStr);
             
